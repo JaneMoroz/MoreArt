@@ -1,0 +1,32 @@
+.search-results {
+  &__text {
+    font-size: 3rem;
+    text-align: center;
+    padding: 3.2rem 0 1.6rem 0;
+
+    span {
+      font-size: 3.6rem;
+      color: $color-primary;
+    }
+  }
+
+  &__gallery {
+    position: relative;
+
+    &-btn {
+      position: absolute;
+      z-index: 1100;
+      &--previous {
+        top: 50%;
+        left: 1.6rem;
+        transform: translateY(-50%);
+      }
+
+      &--next {
+        top: 50%;
+        right: 1.6rem;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+%btn {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-icon {
+  @extend %btn;
+  background-color: transparent;
+  fill: $color-primary;
+
+  &--search {
+    height: 3.4rem;
+    width: 3.2rem;
+
+    &:hover {
+      transform: scale(1.07);
+    }
+  }
+
+  &--fav {
+    svg {
+      width: 3.4rem;
+      height: 3.2rem;
+    }
+  }
+
+  &--options {
+    svg {
+      width: 4.2rem;
+      height: 3.2rem;
+    }
+  }
+
+  &--met {
+    width: 13rem;
+    height: 8.7rem;
+  }
+
+  &--heart-outline {
+    width: 3.5rem;
+    height: 3.8rem;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &--refresh {
+    background-color: $color-white-transparent;
+    border-radius: 1.3rem;
+    padding: 0.9rem;
+    box-shadow: $shadow-medium;
+    transition: all 0.3s;
+    svg {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+
+.btn-inline {
+  color: $color-text;
+  transition: all 0.3s;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.btn-pagination {
+  @extend %btn;
+  font-family: inherit;
+  font-size: 3rem;
+  color: inherit;
+  background-color: $color-white-transparent;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.6rem 1.2rem;
+  border-radius: 1.3rem;
+  box-shadow: $shadow-medium;
+  transition: all 0.3s;
+
+  svg {
+    width: 2rem;
+    height: 1.5rem;
+    margin-top: 0.4rem;
+    fill: $color-text;
+  }
+
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+.btn {
+  @extend %btn;
+  font-family: inherit;
+  font-size: 3rem;
+  background-color: $color-white-transparent;
+  border-radius: 1.3rem;
+  padding: 0.5rem 1.6rem;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $color-background;
+  }
+}
