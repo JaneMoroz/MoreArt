@@ -85,7 +85,38 @@
             <use href="src/img/icons.svg#icon-refresh"></use>
           </svg>
         </button>
-        <figure class="gallery__item gallery__item--1">
+        <figure class="gallery__item gallery__item--1 disactivated">
+          <div class="gallery__item-display-options">
+            <button
+              class="
+                btn-icon btn-icon--pencil
+                gallery__item-display-options-btn
+              "
+            >
+              <svg>
+                <use href="src/img/icons.svg#icon-pencil"></use>
+              </svg>
+            </button>
+            <form class="form">
+              <div class="form__row">
+                <label class="form__label">Search By</label>
+                <select class="form__input form__input--type">
+                  <option value="department">Department</option>
+                  <option value="date">Date/Era</option>
+                  <option value="geo">Geographic Location</option>
+                </select>
+              </div>
+              <div class="form__row">
+                <label class="form__label">Department</label>
+                <select class="form__input form__input--type">
+                  <option value="greekRomanArt">Greek And Roman Art</option>
+                  <option value="euPaintings">European Paintings</option>
+                  <option value="egArt">Egiption Art</option>
+                </select>
+              </div>
+              <button class="btn form__btn">Save</button>
+            </form>
+          </div>
           <button class="btn-icon btn-icon--heart-outline gallery__item-like">
             <svg>
               <use href="src/img/icons.svg#icon-heart-outlined"></use>

@@ -85,6 +85,16 @@
       background-color: #fff;
     }
   }
+
+  &--pencil {
+    height: 5rem;
+    width: 5rem;
+    fill: #fff;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .btn-inline {
