@@ -25,14 +25,14 @@ body {
   background-color: #fff9f9;
   overflow: hidden; }
 
-.btn-icon, .btn-pagination, .btn {
+.btn-icon, .btn {
   border: none;
   cursor: pointer;
   display: flex;
   gap: 1.5rem;
   align-items: center;
   transition: all 0.2s; }
-  .btn-icon:focus, .btn-pagination:focus, .btn:focus {
+  .btn-icon:focus, .btn:focus {
     outline: none; }
 
 .btn-icon {
@@ -76,35 +76,24 @@ body {
   .btn-inline:hover {
     color: #d05656; }
 
-.btn-pagination {
-  font-family: inherit;
-  font-size: 3rem;
-  color: inherit;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  padding: 0.6rem 1.2rem;
-  border-radius: 1.3rem;
-  box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.125);
-  transition: all 0.3s; }
-  .btn-pagination svg {
-    width: 2rem;
-    height: 1.5rem;
-    margin-top: 0.4rem;
-    fill: #3f3f3f; }
-  .btn-pagination:hover {
-    background-color: #fff; }
-
 .btn {
   font-family: inherit;
   font-size: 3rem;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 1.3rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
   padding: 0.5rem 1.6rem;
+  box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.125);
   transition: all 0.3s; }
+  .btn svg {
+    width: 2rem;
+    height: 1.5rem;
+    margin-top: 0.4rem;
+    fill: #3f3f3f; }
   .btn:hover {
-    background-color: #fff9f9; }
+    background-color: #fff; }
 
 .header {
   display: flex;
@@ -124,7 +113,7 @@ body {
   padding: 0.6rem 2.4rem;
   transition: all 0.3s; }
   .search:focus-within {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scaleX(1.05);
     box-shadow: 0 0.7rem 3rem rgba(166, 166, 166, 0.125); }
   .search__field {
     background-color: #fff1f1;
@@ -167,7 +156,7 @@ body {
     position: absolute;
     top: 50%;
     right: 1.6rem;
-    z-index: 1000;
+    z-index: 3000;
     transform: translate(0, -50%); }
   .gallery__item {
     position: relative; }
@@ -189,6 +178,11 @@ body {
     .gallery__item--6 {
       grid-area: pic6;
       margin: 0.5rem 0 0 0.5rem; }
+    .gallery__item-like {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      opacity: 0; }
     .gallery__item-img {
       width: 100%;
       height: 100%;
@@ -213,14 +207,14 @@ body {
         font-size: 3.2rem; }
       .gallery__item-caption-artist {
         font-size: 2.4rem; }
-      .gallery__item-caption-like {
-        position: absolute;
-        top: 2rem;
-        right: 2rem; }
 
 .gallery__item:hover > .gallery__item-caption {
   opacity: 1;
   height: 100%; }
+
+.gallery__item:hover > .gallery__item-like {
+  opacity: 1;
+  z-index: 100; }
 
 .search-results__text {
   font-size: 3rem;
@@ -234,7 +228,7 @@ body {
   position: relative; }
   .search-results__gallery-btn {
     position: absolute;
-    z-index: 1100; }
+    z-index: 4000; }
     .search-results__gallery-btn--previous {
       top: 50%;
       left: 1.6rem;

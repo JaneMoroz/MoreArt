@@ -80,17 +80,16 @@
   }
 }
 
-.btn-pagination {
+.btn {
   @extend %btn;
   font-family: inherit;
   font-size: 3rem;
-  color: inherit;
   background-color: $color-white-transparent;
+  border-radius: 1.3rem;
   display: flex;
   gap: 1rem;
   align-items: center;
-  padding: 0.6rem 1.2rem;
-  border-radius: 1.3rem;
+  padding: 0.5rem 1.6rem;
   box-shadow: $shadow-medium;
   transition: all 0.3s;
 
@@ -103,19 +102,5 @@
 
   &:hover {
     background-color: #fff;
-  }
-}
-
-.btn {
-  @extend %btn;
-  font-family: inherit;
-  font-size: 3rem;
-  background-color: $color-white-transparent;
-  border-radius: 1.3rem;
-  padding: 0.5rem 1.6rem;
-  transition: all 0.3s;
-
-  &:hover {
-    background-color: $color-background;
   }
 }
