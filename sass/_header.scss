@@ -39,6 +39,7 @@
 }
 
 .nav {
+  position: relative;
   align-self: stretch;
 
   &__list {
@@ -48,7 +49,6 @@
   }
 
   &__item {
-    position: relative;
   }
 
   &__btn {
@@ -61,5 +61,56 @@
     &:hover {
       background-color: $color-background-dark;
     }
+  }
+}
+
+.favorites {
+  background-color: $color-background;
+  border-radius: 0 0 0 1.3rem;
+  position: absolute;
+  right: -1rem;
+  width: 40rem;
+  z-index: 4000;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s 0.2s;
+
+  &__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-right: 1rem;
+
+    &-item {
+      height: 20rem;
+      padding: 1rem;
+
+      &-link {
+        &,
+        &:link,
+        &:visited {
+          cursor: pointer;
+          text-decoration: none;
+        }
+
+        &:hover > img {
+          transform: scale(1.01);
+        }
+        img {
+          height: 100%;
+          width: 100%;
+          max-height: 100%;
+          object-fit: cover;
+          transition: all 0.3s;
+        }
+      }
+    }
+  }
+
+  &:hover,
+  .nav__btn--add-favorite:hover + & {
+    visibility: visible;
+    opacity: 1;
   }
 }

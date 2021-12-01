@@ -111,6 +111,26 @@ body {
   color: #d05656;
   font-weight: 500; }
 
+.message,
+.error {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 5rem 4rem;
+  display: flex;
+  grid-column: -1; }
+  .message svg,
+  .error svg {
+    height: 3rem;
+    width: 3rem;
+    fill: #d05656;
+    transform: translateY(-0.3rem); }
+  .message p,
+  .error p {
+    margin-left: 1.5rem;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    font-weight: 600; }
+
 .header {
   display: flex;
   align-items: center;
@@ -142,13 +162,12 @@ body {
       outline: none; }
 
 .nav {
+  position: relative;
   align-self: stretch; }
   .nav__list {
     list-style: none;
     display: flex;
     height: 100%; }
-  .nav__item {
-    position: relative; }
   .nav__btn {
     height: 100%;
     font-family: inherit;
@@ -157,6 +176,40 @@ body {
     padding: 0 2rem; }
     .nav__btn:hover {
       background-color: #fff1f1; }
+
+.favorites {
+  background-color: #fff9f9;
+  border-radius: 0 0 0 1.3rem;
+  position: absolute;
+  right: -1rem;
+  width: 40rem;
+  z-index: 4000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s 0.2s; }
+  .favorites__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-right: 1rem; }
+    .favorites__list-item {
+      height: 20rem;
+      padding: 1rem; }
+      .favorites__list-item-link, .favorites__list-item-link:link, .favorites__list-item-link:visited {
+        cursor: pointer;
+        text-decoration: none; }
+      .favorites__list-item-link:hover > img {
+        transform: scale(1.01); }
+      .favorites__list-item-link img {
+        height: 100%;
+        width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        transition: all 0.3s; }
+  .favorites:hover,
+  .nav__btn--add-favorite:hover + .favorites {
+    visibility: visible;
+    opacity: 1; }
 
 .gallery {
   position: relative;
