@@ -1,0 +1,109 @@
+.details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 1.3rem;
+  width: 100rem;
+  padding: 4rem 6rem 4rem 4rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
+  z-index: 5000;
+  transition: all 0.5s;
+
+  &-close {
+    position: absolute;
+    top: 1.3rem;
+    right: 1.3rem;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+    column-gap: 3.6rem;
+
+    &-images {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    &-image {
+      height: 60rem;
+      flex: 0.5;
+      cursor: pointer;
+      transition: flex 0.7s ease-in;
+
+      &--active {
+        flex: 5;
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 1.3rem;
+      }
+    }
+
+    &-text {
+    }
+
+    &-title {
+    }
+
+    &-year {
+      font-size: 3rem;
+      color: $color-grey-light;
+      text-align: right;
+      margin-bottom: 2rem;
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      list-style: none;
+      margin-bottom: 3.6rem;
+
+      &-item {
+        font-size: 2.4rem;
+        display: flex;
+        align-items: center;
+        gap: 1.6rem;
+
+        svg {
+          height: 3rem;
+          width: 3rem;
+        }
+
+        &--map {
+          svg {
+            height: 3rem;
+            width: 4rem;
+          }
+        }
+      }
+    }
+
+    &-btn {
+      width: fit-content;
+      margin: 0 auto;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}

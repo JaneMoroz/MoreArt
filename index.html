@@ -13,13 +13,13 @@
     <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/style.css" />
-    <!-- <script type="module" defer src="src/js/controller.js"></script> -->
+    <script defer src="js/style.js"></script>
     <title>MoreArt</title>
   </head>
   <body>
     <div class="container">
       <header class="header">
-        <img src="src/img/logo.png" alt="logo" class="header__logo" />
+        <img src="src/img/logo-4x.png" alt="logo" class="header__logo" />
         <form class="search">
           <input
             type="text"
@@ -318,6 +318,73 @@
           <img src="src/img/the-met.svg" alt="" />
         </a>
       </footer>
+      <div class="overlay hidden"></div>
+      <div class="details hidden">
+        <button class="btn-icon btn-icon--close details-close">
+          <svg>
+            <use href="src/img/icons.svg#icon-cross"></use>
+          </svg>
+        </button>
+        <div class="details__container">
+          <div class="details__container-images">
+            <div class="details__container-image details__container-image--active">
+              <img src="src/test/pic3.jpg" alt="Picture 1" />
+            </div>
+            <div class="details__container-image">
+              <img src="src/test/pic4.jpg" alt="Picture 1" />
+            </div>
+            <div class="details__container-image">
+              <img src="src/test/pic1.jpg" alt="Picture 1" />
+            </div>
+          </div>
+          <div class="details__container-text">
+            <h1 class="heading-primary details__container-title">
+              A Woman with a Dog
+            </h1>
+            <p class="details__container-year">ca. 1769</p>
+            <ul class="details__container-list">
+              <li class="details__container-list-item">
+                <svg>
+                  <use href="src/img/icons.svg#icon-profile-male"></use>
+                </svg>
+                Jean Honoré Fragonard
+              </li>
+              <li class="details__container-list-item">
+                <svg>
+                  <use href="src/img/icons.svg#icon-picture"></use>
+                </svg>
+                Paintings
+              </li>
+              <li class="details__container-list-item">
+                <svg>
+                  <use href="src/img/icons.svg#icon-clipboard"></use>
+                </svg>
+                European Paintings
+              </li>
+              <li class="details__container-list-item">
+                <svg>
+                  <use href="src/img/icons.svg#icon-globe"></use>
+                </svg>
+                France
+              </li>
+              <li class="details__container-list-item details__container-list-item--map">
+                <svg>
+                  <use href="src/img/icons.svg#icon-map"></use>
+                </svg>
+                Metropolitan Museum of Art, New York, NY
+              </li>
+            </ul>
+            <a href="#" class="btn details__container-btn">
+              Learn More on
+              <img
+                src="src/img/the-met.svg
+              "
+                alt="The MET Website Logo"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
