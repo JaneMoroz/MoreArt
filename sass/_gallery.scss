@@ -40,6 +40,7 @@
 
   &__item {
     position: relative;
+    overflow: hidden;
     &--1 {
       grid-area: pic1;
       margin: 0 0.5rem 0.5rem 0;
@@ -110,12 +111,13 @@
     &-display-options {
       position: absolute;
       top: 0;
-      background-color: rgba(177, 71, 71, 0.39);
+      background-color: $color-grey-transparent;
       height: 100%;
       width: 100%;
       z-index: 6000;
 
       &-btn {
+        display: none;
         margin: 1.4rem;
       }
     }
@@ -136,21 +138,17 @@
 // Form
 .form {
   color: $color-text;
-  border-radius: 5px;
   padding: 1.5rem 2.75rem;
-  margin-bottom: 1.75rem;
-
+  max-width: 30rem;
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   gap: 2.4rem;
-
-  /* Match height and activity boxes */
-  height: 9.25rem;
   transition: all 0.5s, transform 1ms;
 }
 
 .form.hidden {
-  transform: translateY(-30rem);
+  transform: translateY(50rem);
   height: 0;
   padding: 0 2.25rem;
   margin-bottom: 0;
@@ -160,7 +158,7 @@
 .form__row {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1.2rem;
   align-items: center;
 }
 
@@ -180,7 +178,7 @@
   font-family: inherit;
   font-size: 1.8rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 1rem;
   background-color: #fff;
   transition: all 0.2s;
 }

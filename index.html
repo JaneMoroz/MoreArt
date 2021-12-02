@@ -44,6 +44,7 @@
                 </svg>
                 <span>Favorites</span>
               </button>
+              <!-- Dropdown Favorites Window -->
               <div class="favorites">
                 <ul class="favorites__list">
                   <div class="message">
@@ -54,6 +55,7 @@
                     </div>
                     <p>No favorites yet. Find a nice image and like it :)</p>
                   </div>
+                  <!-- Favorites Window Item -->
                   <!-- <li class="favorites__list-item">
                     <a class="favorites__list-item-link">
                       <img src="src/test/SearchPic2.jpg" alt="Fav1" />
@@ -67,6 +69,7 @@
                 </ul>
               </div>
             </li>
+            <!-- Button to Choose What Kind Of ArtWork To Display In Each Grid Item -->
             <li class="nav__item">
               <button
                 class="btn-icon btn-icon--options nav__btn nav__btn--options"
@@ -85,9 +88,11 @@
             <use href="src/img/icons.svg#icon-refresh"></use>
           </svg>
         </button>
-        <figure class="gallery__item gallery__item--1 disactivated">
-          <div class="gallery__item-display-options">
-            <button
+        <figure class="gallery__item gallery__item--1">
+          <!-- A User Can Choose Display Options -->
+          <!--<div class="gallery__item-display-options"> -->
+            <!-- Button To Activate a Form Which Corresponds To a Specific Grid Cell, Disappears After Activation -->
+            <!-- <button
               class="
                 btn-icon btn-icon--pencil
                 gallery__item-display-options-btn
@@ -96,27 +101,68 @@
               <svg>
                 <use href="src/img/icons.svg#icon-pencil"></use>
               </svg>
-            </button>
-            <form class="form">
-              <div class="form__row">
+            </button> -->
+            <!-- Form -->
+            <!-- <form class="form"> -->
+              <!-- First Choose Filter -->
+              <!-- <div class="form__row">
                 <label class="form__label">Search By</label>
                 <select class="form__input form__input--type">
                   <option value="department">Department</option>
                   <option value="date">Date/Era</option>
                   <option value="geo">Geographic Location</option>
                 </select>
-              </div>
-              <div class="form__row">
+              </div> -->
+              <!-- If 'Department' was chosen -->
+              <!-- <div class="form__row">
                 <label class="form__label">Department</label>
                 <select class="form__input form__input--type">
                   <option value="greekRomanArt">Greek And Roman Art</option>
-                  <option value="euPaintings">European Paintings</option>
-                  <option value="egArt">Egiption Art</option>
+                  <option value="euPaint">European Paintings</option>
+                  <option value="egArt">Egyption Art</option>
+                  <option value="american">The American Wing</option>
+                  <option value="anEasternArt">Ancient Near Eastern Art</option>
+                  <option value="armsArmor">Arms And Armor</option>
+                  <option value="photo">Photographs</option>
                 </select>
-              </div>
-              <button class="btn form__btn">Save</button>
-            </form>
-          </div>
+              </div> -->
+              <!-- If 'Date/Era' was chosen -->
+              <!-- <div class="form__row">
+                <label class="form__label">Date/Era</label>
+                <select class="form__input form__input--type">
+                  <option value="AD1800_1900">a.d. 1800-1900</option>
+                  <option value="AD1600_1800">a.d. 1600-1800</option>
+                  <option value="AD1400_1600">a.d. 1400-1600</option>
+                  <option value="1000BC-AD1">1000 b.c.-a.d.1</option>
+                  <option value="AD1000_1400">a.d. 1000-1400</option>
+                  <option value="2000_1000BC">2000-1000 b.c.</option>
+                  <option value="AD500_100">a.d. 500-100</option>
+                  <option value="AD1_500">a.d. 1-500</option>
+                  <option value="8000_2000BC">8000-2000 b.c.</option>
+                  <option value="AD1900_PRESENT">a.d. 1900-present</option>
+                </select>
+              </div> -->
+              <!-- If 'Geographic Location' was chosen -->
+              <!-- <div class="form__row">
+                <label class="form__label">Geographic Location</label>
+                <select class="form__input form__input--type">
+                  <option value="africa">Africa</option>
+                  <option value="asia">Asia</option>
+                  <option value="egypt">Egypt</option>
+                  <option value="europe">Europe</option>
+                  <option value="france">France</option>
+                  <option value="germany">Germany</option>
+                  <option value="greece">Greece</option>
+                  <option value="iran">Iran</option>
+                  <option value="italy">Italy</option>
+                  <option value="netherland">Netherlands</option>
+                  <option value="nortrh_centralAmerica">North And Central America</option>
+                  <option value="usa">United States</option>
+                </select>
+              </div> -->
+              <!-- <button class="btn form__btn">Save</button>
+            </form> 
+          </div> -->
           <button class="btn-icon btn-icon--heart-outline gallery__item-like">
             <svg>
               <use href="src/img/icons.svg#icon-heart-outlined"></use>
