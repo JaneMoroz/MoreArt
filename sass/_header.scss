@@ -98,6 +98,8 @@
   position: absolute;
   right: -1rem;
   width: 40rem;
+  max-height: 100vh;
+  overflow: scroll;
   z-index: 4000;
 
   visibility: hidden;
