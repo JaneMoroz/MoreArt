@@ -4,6 +4,13 @@
   justify-content: space-between;
   height: 9rem;
 
+  @media only screen and (max-width: $bp-small) {
+    gap: 1.6rem;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 1.2rem 0;
+  }
+
   &__logo {
     margin-left: 2rem;
     height: 6.7rem;
@@ -19,6 +26,13 @@
   padding: 0.6rem 2.4rem;
   transition: all 0.3s;
 
+  @media only screen and (max-width: $bp-small) {
+    order: 1;
+    flex: 0 0 100%;
+    border-radius: 0;
+    justify-content: space-between;
+  }
+
   &:focus-within {
     transform: translateY(-2px) scaleX(1.05);
     box-shadow: 0 0.7rem 3rem rgba($color-grey-light, 0.125);
@@ -31,6 +45,14 @@
     color: inherit;
     font-size: 1.8rem;
     width: 36rem;
+
+    @media only screen and (max-width: $bp-medium) {
+      width: 25rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+      width: 25rem;
+    }
 
     &:focus {
       outline: none;
@@ -60,6 +82,12 @@
 
     &:hover {
       background-color: $color-background-dark;
+    }
+
+    span {
+      @media only screen and (max-width: $bp-smallest) {
+        display: none;
+      }
     }
   }
 }

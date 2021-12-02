@@ -11,7 +11,7 @@ $color-grey-transparent: rgba(135, 135, 135, 0.6);
 $color-white-transparent: rgba(255, 255, 255, 0.9);
 
 // Shadow
-$shadow-medium: 0 2rem 3rem rgba(0, 0, 0, .125);
+$shadow-medium: 0 2rem 3rem rgba(0, 0, 0, 0.125);
 
 // Responsive Design / Breakpoints
 $bp-large: 78.15em; // 1250px
@@ -33,6 +33,10 @@ $bp-smallest: 26.75em; // 428px
 html {
   box-sizing: border-box;
   font-size: 62.5%; // 1rem = 10px
+
+  @media only screen and (max-width: $bp-medium) {
+    font-size: 50%;
+  }
 }
 
 body {

@@ -10,6 +10,9 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%; }
+  @media only screen and (max-width: 64em) {
+    html {
+      font-size: 50%; } }
 
 body {
   font-family: 'Cormorant Upright', serif;
@@ -142,6 +145,12 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 9rem; }
+  @media only screen and (max-width: 48em) {
+    .header {
+      gap: 1.6rem;
+      flex-wrap: wrap;
+      height: auto;
+      padding: 1.2rem 0; } }
   .header__logo {
     margin-left: 2rem;
     height: 6.7rem;
@@ -154,6 +163,12 @@ body {
   align-items: center;
   padding: 0.6rem 2.4rem;
   transition: all 0.3s; }
+  @media only screen and (max-width: 48em) {
+    .search {
+      order: 1;
+      flex: 0 0 100%;
+      border-radius: 0;
+      justify-content: space-between; } }
   .search:focus-within {
     transform: translateY(-2px) scaleX(1.05);
     box-shadow: 0 0.7rem 3rem rgba(166, 166, 166, 0.125); }
@@ -164,6 +179,12 @@ body {
     color: inherit;
     font-size: 1.8rem;
     width: 36rem; }
+    @media only screen and (max-width: 64em) {
+      .search__field {
+        width: 25rem; } }
+    @media only screen and (max-width: 48em) {
+      .search__field {
+        width: 25rem; } }
     .search__field:focus {
       outline: none; }
 
@@ -182,6 +203,9 @@ body {
     padding: 0 2rem; }
     .nav__btn:hover {
       background-color: #fff1f1; }
+    @media only screen and (max-width: 26.75em) {
+      .nav__btn span {
+        display: none; } }
 
 .favorites {
   background-color: #fff9f9;
@@ -541,6 +565,14 @@ body {
   align-items: center;
   justify-content: center;
   padding: 7.8rem 0 2.5rem 0; }
+  @media only screen and (max-width: 26.75em) {
+    .footer {
+      flex-direction: column;
+      gap: 1.2rem; } }
   .footer__text {
     display: block;
+    text-align: center;
     font-size: 3rem; }
+    @media only screen and (max-width: 48em) {
+      .footer__text {
+        padding: 0 1.2rem; } }
