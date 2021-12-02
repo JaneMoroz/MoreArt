@@ -1,10 +1,25 @@
 .gallery {
   position: relative;
   height: calc(100vh - 9rem);
-  // background-color: rgb(140, 147, 207);
+  min-height: 80rem;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+
+  @media only screen and (max-width: $bp-medium) {
+    height: 120rem;
+    grid-template-rows: repeat(12, 1fr);
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media only screen and (max-width: $bp-smallest) {
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
 
   &--1 {
     grid-template-areas:
@@ -16,6 +31,46 @@
       'pic2 pic2 pic4 pic4 pic4 pic6 pic6 pic6'
       'pic2 pic2 pic4 pic4 pic4 pic6 pic6 pic6'
       'pic2 pic2 pic4 pic4 pic4 pic6 pic6 pic6';
+
+    @media only screen and (max-width: $bp-medium) {
+      grid-template-areas:
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic2 pic2 pic2 pic2 pic4 pic4 pic4 pic4'
+        'pic2 pic2 pic2 pic2 pic5 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic2 pic5 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic2 pic5 pic5 pic5 pic5'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6';
+    }
+
+    @media only screen and (max-width: $bp-small) {
+      grid-template-areas:
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic2 pic2 pic2 pic4 pic4 pic4'
+        'pic2 pic2 pic2 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic5 pic5 pic5'
+        'pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic6 pic6 pic6';
+    }
+
+    @media only screen and (max-width: $bp-smallest) {
+      grid-template-areas:
+        'pic1 pic2'
+        'pic3 pic3'
+        'pic4 pic5'
+        'pic6 pic6';
+    }
   }
 
   &--2 {
@@ -28,6 +83,46 @@
       'pic2 pic2 pic2 pic4 pic4 pic6 pic6 pic6'
       'pic2 pic2 pic2 pic4 pic4 pic6 pic6 pic6'
       'pic2 pic2 pic2 pic4 pic4 pic6 pic6 pic6';
+
+    @media only screen and (max-width: $bp-medium) {
+      grid-template-areas:
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic4 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic1 pic5 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic2 pic5 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic2 pic5 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic2 pic5 pic5 pic5 pic5'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic3 pic3 pic6 pic6 pic6';
+    }
+
+    @media only screen and (max-width: $bp-small) {
+      grid-template-areas:
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic4 pic4 pic4'
+        'pic1 pic1 pic1 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic5 pic5 pic5'
+        'pic2 pic2 pic2 pic5 pic5 pic5'
+        'pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic6 pic6 pic6'
+        'pic3 pic3 pic3 pic6 pic6 pic6';
+    }
+
+    @media only screen and (max-width: $bp-smallest) {
+      grid-template-areas:
+        'pic1 pic2'
+        'pic3 pic3'
+        'pic4 pic5'
+        'pic6 pic6';
+    }
   }
 
   &__refresh-btn {
@@ -38,32 +133,91 @@
     transform: translate(0, -50%);
   }
 
+  &__refresh-btn.sticky {
+    position: fixed;
+    top: 100%;
+    right: 2%;
+    transform: translate(0, -120%);
+  }
+
+  &__refresh-btn.hidden {
+    display: none;
+  }
+
   &__item {
     position: relative;
     overflow: hidden;
     &--1 {
       grid-area: pic1;
       margin: 0 0.5rem 0.5rem 0;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0 0.3rem 0.3rem 0;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin: 0 0.3rem 0.3rem 0;
+      }
     }
     &--2 {
       grid-area: pic2;
       margin: 0.5rem 0.5rem 0 0;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0.3rem 0.3rem 0.3rem 0;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin: 0 0 0.3rem 0.3rem;
+      }
     }
     &--3 {
       grid-area: pic3;
       margin: 0 0.5rem 0.5rem 0.5rem;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0.3rem 0.3rem 0 0;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin: 0.3rem 0 0.3rem 0;
+      }
     }
     &--4 {
       grid-area: pic4;
       margin: 0.5rem 0.5rem 0 0.5rem;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0 0 0.3rem 0.3rem;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin: 0.3rem 0.3rem 0.3rem 0;
+      }
     }
     &--5 {
       grid-area: pic5;
       margin: 0 0 0.5rem 0.5rem;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0.3rem 0 0.3rem 0.3rem;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin: 0.3rem 0 0.3rem 0.3rem;
+      }
     }
     &--6 {
       grid-area: pic6;
       margin: 0.5rem 0 0 0.5rem;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0.3rem 0 0 0.3rem;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin: 0.3rem 0 0 0;
+      }
     }
 
     &-like {

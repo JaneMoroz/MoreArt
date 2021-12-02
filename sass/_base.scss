@@ -10,7 +10,14 @@ $color-grey-light: #a6a6a6;
 $color-grey-transparent: rgba(135, 135, 135, 0.6);
 $color-white-transparent: rgba(255, 255, 255, 0.9);
 
+// Shadow
 $shadow-medium: 0 2rem 3rem rgba(0, 0, 0, .125);
+
+// Responsive Design / Breakpoints
+$bp-large: 78.15em; // 1250px
+$bp-medium: 64em; // 1024px
+$bp-small: 48em; // 768px
+$bp-smallest: 26.75em; // 428px
 
 * {
   margin: 0;

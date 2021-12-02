@@ -16,16 +16,39 @@
     &-btn {
       position: absolute;
       z-index: 4000;
+
       &--previous {
         top: 50%;
         left: 1.6rem;
         transform: translateY(-50%);
       }
 
+      &--previous.sticky {
+        position: fixed;
+        top: 100%;
+        right: 2%;
+        transform: translate(0, -120%);
+      }
+
+      &--previous.hidden {
+        display: none;
+      }
+
       &--next {
         top: 50%;
         right: 1.6rem;
         transform: translateY(-50%);
+      }
+
+      &--next.sticky {
+        position: fixed;
+        top: 100%;
+        right: 2%;
+        transform: translate(0, -120%);
+      }
+
+      &--next.hidden {
+        display: none;
       }
     }
   }
