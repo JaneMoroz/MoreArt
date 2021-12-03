@@ -151,10 +151,13 @@
 .message,
 .error {
   max-width: 40rem;
+  height: 100%;
   margin: 0 auto;
   padding: 5rem 4rem;
 
   display: flex;
+  justify-content: center;
+  align-items: center;
   grid-column: -1;
 
   svg {
@@ -169,5 +172,30 @@
     font-size: 1.8rem;
     line-height: 1.5;
     font-weight: 600;
+  }
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  grid-column: 1 / -1;
+
+  svg {
+    height: 6rem;
+    width: 6rem;
+    fill: $color-primary;
+    animation: rotate 2s infinite linear;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
