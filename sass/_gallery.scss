@@ -1,6 +1,6 @@
 .gallery {
   position: relative;
-  height: calc(100vh - 9rem);
+  height: calc(100vh - 8rem);
   min-height: 80rem;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -128,7 +128,7 @@
     position: absolute;
     top: 50%;
     right: 1.6rem;
-    z-index: 3000;
+    z-index: 300;
     transform: translate(0, -50%);
   }
 

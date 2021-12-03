@@ -6,10 +6,25 @@
   background-color: #fff;
   border-radius: 1.3rem;
   width: 100rem;
+  max-height: 100vh;
+  overflow: scroll;
   padding: 4rem 6rem 4rem 4rem;
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
   z-index: 5000;
   transition: all 0.5s;
+
+  @media only screen and (max-width: $bp-medium) {
+    width: 95%;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  @media only screen and (max-width: $bp-smallest) {
+    height: 100vh;
+  }
 
   &-close {
     position: absolute;
@@ -20,6 +35,12 @@
     display: grid;
     grid-template-columns: 2fr 1.5fr;
     column-gap: 3.6rem;
+
+    @media only screen and (max-width: $bp-small) {
+      display: flex;
+      flex-direction: column;
+      row-gap: 1.6rem;
+    }
 
     &-images {
       display: flex;
@@ -45,9 +66,21 @@
     }
 
     &-text {
+      @media only screen and (max-width: $bp-small) {
+        display: grid;
+        column-gap: 1.6rem;
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     &-title {
+      @media only screen and (max-width: $bp-small) {
+        grid-column: 1;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        grid-column: 1 / span 2;
+      }
     }
 
     &-year {
@@ -55,6 +88,17 @@
       color: $color-grey-light;
       text-align: right;
       margin-bottom: 2rem;
+
+      @media only screen and (max-width: $bp-small) {
+        grid-row: 2;
+        grid-column: 1;
+        text-align: left;
+        font-size: 2.4rem;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        grid-column: 1 / span 2;
+      }
     }
 
     &-list {
@@ -64,11 +108,27 @@
       list-style: none;
       margin-bottom: 3.6rem;
 
+      @media only screen and (max-width: $bp-small) {
+        grid-row: 3;
+        grid-column: 1 / span 2;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 0;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        margin-bottom: 1.2rem;
+      }
+
       &-item {
         font-size: 2.4rem;
         display: flex;
         align-items: center;
         gap: 1.6rem;
+
+        @media only screen and (max-width: $bp-small) {
+          font-size: 2rem;
+        }
 
         svg {
           height: 3rem;
@@ -79,6 +139,10 @@
           svg {
             height: 3rem;
             width: 4rem;
+
+            @media only screen and (max-width: $bp-smallest) {
+              width: 8rem;
+            }
           }
         }
       }
@@ -87,6 +151,18 @@
     &-btn {
       width: fit-content;
       margin: 0 auto;
+
+      @media only screen and (max-width: $bp-small) {
+        grid-row: 1;
+        grid-column: 2;
+        align-self: center;
+      }
+
+      @media only screen and (max-width: $bp-smallest) {
+        grid-row: 4;
+        grid-column: 1 / span 2;
+        align-self: center;
+      }
     }
   }
 }
@@ -99,7 +175,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
-  z-index: 100;
+  z-index: 1000;
   transition: all 0.5s;
 }
 
