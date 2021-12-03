@@ -96,7 +96,8 @@
   background-color: $color-background;
   border-radius: 0 0 0 1.3rem;
   position: absolute;
-  right: -1rem;
+  // right: -1rem;
+  right: 0;
   width: 40rem;
   max-height: 100vh;
   overflow-y: scroll;
