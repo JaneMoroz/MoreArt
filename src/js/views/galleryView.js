@@ -9,6 +9,16 @@ class GalleryView {
     window.addEventListener('load', handler);
   }
 
+  addHandlerClick(handler) {
+    this.#parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.gallery__refresh-btn');
+
+      if (!btn) return;
+
+      handler();
+    });
+  }
+
   renderGallery(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
@@ -34,6 +44,11 @@ class GalleryView {
 
   #generateMarkup() {
     return `
+    <button class="btn-icon btn-icon--refresh gallery__refresh-btn">
+      <svg>
+        <use href="${icons}#icon-refresh"></use>
+      </svg>
+    </button>
     ${this.#data.map((cell, i) => this.#generateCellMarkup(cell, i)).join('')}
     `;
   }
