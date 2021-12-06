@@ -5,6 +5,7 @@ class SearchResultsGalleryView {
   #parentEl = document.querySelector('.search-results');
   #data;
   #search;
+  #errorMessage = 'Nothing found. Please try again!';
 
   addHandlerClick(handler) {
     this.#parentEl.addEventListener('click', function (e) {
@@ -144,6 +145,21 @@ class SearchResultsGalleryView {
 
     // Page 1, and there are NO pages
     return '';
+  }
+
+  renderError(message = this.#errorMessage) {
+    const markup = `
+    <div class="error">
+      <div>
+        <svg>
+          <use href="${icons}#icon-caution"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div>
+    `;
+    this.#clear();
+    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 }
 

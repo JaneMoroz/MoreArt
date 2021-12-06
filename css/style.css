@@ -132,7 +132,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  grid-column: -1; }
+  grid-column: 1 / -1;
+  grid-row: 1 / -1; }
   .message svg,
   .error svg {
     height: 3rem;

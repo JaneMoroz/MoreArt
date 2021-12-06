@@ -101,20 +101,24 @@ const loadCell = async function (cell) {
 };
 
 const updateCell = async function (cell) {
-  console.log(cell.collection);
-  // 1. Get array length
-  const numberOfObjects = cell.collection.length;
+  try {
+    console.log(cell.collection);
+    // 1. Get array length
+    const numberOfObjects = cell.collection.length;
 
-  // 2. Get random index
-  const randomIndex = Math.floor(Math.random() * numberOfObjects);
-  console.log(randomIndex);
+    // 2. Get random index
+    const randomIndex = Math.floor(Math.random() * numberOfObjects);
+    console.log(randomIndex);
 
-  // 3. Update current dislay object
-  const nextObject = cell.collection[randomIndex];
-  cell.currentDisplay = nextObject;
-  console.log(nextObject);
-  // 4. Update current display collection
-  state.currentDisplayCollection.push(nextObject);
+    // 3. Update current dislay object
+    const nextObject = cell.collection[randomIndex];
+    cell.currentDisplay = nextObject;
+    console.log(nextObject);
+    // 4. Update current display collection
+    state.currentDisplayCollection.push(nextObject);
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const loadGallery = async function () {
@@ -157,6 +161,7 @@ export const loadSearchResults = async function (query) {
 
     // 2. Get ids
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${query}`);
+    if (data.length === 0) throw new Error();
     // 2. Get 12 objects
     for (let index = 0; index < 7; index++) {
       // Get objectId
@@ -167,7 +172,9 @@ export const loadSearchResults = async function (query) {
       // Save object to search collection array
       state.search.resultsCollection.push(object);
     }
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Function that returns an array of 6 results according to the page

@@ -17,7 +17,9 @@ const controlGallery = async function () {
 
     // 3. Render gallery
     galleryView.renderGallery(model.state.currentDisplayCollection);
-  } catch (err) {}
+  } catch (err) {
+    galleryView.renderError();
+  }
 };
 
 const controlUpdateGallery = async function () {
@@ -30,7 +32,9 @@ const controlUpdateGallery = async function () {
 
     // 3. Render gallery
     galleryView.renderGallery(model.state.currentDisplayCollection);
-  } catch (err) {}
+  } catch (err) {
+    galleryView.renderError();
+  }
 };
 
 const controlSearchResults = async function () {
@@ -54,7 +58,7 @@ const controlSearchResults = async function () {
     // 5. Add Event listener to pagination btns
     searchResultsGalleryView.addHandlerClick(controlPagination);
   } catch (err) {
-    console.log(err);
+    searchResultsGalleryView.renderError();
   }
 };
 

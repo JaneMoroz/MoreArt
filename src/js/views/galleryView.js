@@ -4,6 +4,7 @@ const [icons] = iconsUrl.split('?');
 class GalleryView {
   #parentEl = document.querySelector('.gallery--1');
   #data;
+  #errorMessage = 'Something went wrong! Try again later.';
 
   addHandlerRender(handler) {
     window.addEventListener('load', handler);
@@ -73,6 +74,21 @@ class GalleryView {
         </figcaption>
     </figure>
     `;
+  }
+
+  renderError(message = this.#errorMessage) {
+    const markup = `
+    <div class="error">
+      <div>
+        <svg>
+          <use href="${icons}#icon-caution"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div>
+    `;
+    this.#clear();
+    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 }
 
