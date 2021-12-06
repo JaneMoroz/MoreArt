@@ -25,7 +25,7 @@ export const state = {
       collection: [],
       currentDisplayId: 0,
       currentDisplay: {},
-      filter: 'Greek and Roman Art',
+      filter: 'Medieval Art',
     },
     cell5: {
       collection: [],
@@ -53,6 +53,7 @@ const createCellObject = function (object) {
   return (cellObject = {
     id: object.objectID,
     primaryImage: object.primaryImage,
+    primaryImageSmall: object.primaryImageSmall,
     additionalImages: object.additionalImages,
     title: object.title,
     artistName: object.artistDisplayName,
@@ -79,7 +80,7 @@ const loadCell = async function (cell) {
     // 1. Load ids corresponding to filter
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${cell.filter}`);
     // 2. Get two random objects
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < 2; index++) {
       // Get random index
       const randomNum = Math.floor(Math.random() * data.total);
       // Get objectId using the random index
@@ -118,12 +119,13 @@ const updateCell = async function (cell) {
 
 export const loadGallery = async function () {
   try {
-    await loadCell(state.gallery.cell1);
-    await loadCell(state.gallery.cell2);
+    // const cells = Object.values(state.gallery);
+
+    // for (const cell of cells) {
+    //   await loadCell(cell);
+    // }
+
     await loadCell(state.gallery.cell3);
-    // await loadCell(state.gallery.cell4);
-    // await loadCell(state.gallery.cell5);
-    // await loadCell(state.gallery.cell6);
   } catch (err) {
     throw err;
   }
@@ -131,13 +133,15 @@ export const loadGallery = async function () {
 
 export const updateGallery = async function () {
   try {
+    // 1. Clear current display collection array
     state.currentDisplayCollection = [];
-    await updateCell(state.gallery.cell1);
-    await updateCell(state.gallery.cell2);
+
     await updateCell(state.gallery.cell3);
-    // await loadCell(state.gallery.cell4);
-    // await loadCell(state.gallery.cell5);
-    // await loadCell(state.gallery.cell6);
+    // const cells = Object.values(state.gallery);
+
+    // for (const cell of cells) {
+    //   await updateCell(cell);
+    // }
   } catch (err) {
     throw err;
   }

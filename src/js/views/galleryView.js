@@ -62,7 +62,7 @@ class GalleryView {
           </svg>
         </button>
         <img
-          src="${cell.primaryImage}"
+          src="${cell.primaryImageSmall}"
           alt="${cell.title}"
           class="gallery__item-img"
         />
