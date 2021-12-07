@@ -44,6 +44,7 @@ export const state = {
   search: {
     query: '',
     resultsCollection: [],
+    resultsDisplayCollection: [],
     resultsPerPage: RES_PER_PAGE,
     page: 1,
   },
@@ -163,14 +164,16 @@ export const loadSearchResults = async function (query) {
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${query}`);
     if (data.length === 0) throw new Error();
     // 2. Get 12 objects
-    for (let index = 0; index < 7; index++) {
+    for (let index = 0; index < 13; index++) {
       // Get objectId
       const objectId = data.objectIDs[index];
       // Get object by id
       const object = await loadObejectById(objectId);
-      console.log(object);
       // Save object to search collection array
       state.search.resultsCollection.push(object);
+      if (state.search.resultsDisplayCollection.length < 7) {
+        state.search.resultsDisplayCollection.push(object);
+      }
     }
   } catch (error) {
     throw error;
@@ -183,10 +186,16 @@ export const loadDetails = async function (cell) {};
 // (display per one page = 6)
 // If page = 1, returns obg1-obj6, if page = 2 returns obj7-obj12
 export const getSearchResultsPage = function (page = state.search.page) {
+  state.search.resultsDisplayCollection = [];
   state.search.page = page;
 
   const start = (page - 1) * state.search.resultsPerPage; // 0;
   const end = page * state.search.resultsPerPage; // 6;
 
-  return state.search.resultsCollection.slice(start, end);
+  state.search.resultsDisplayCollection = state.search.resultsCollection.slice(
+    start,
+    end
+  );
+
+  return state.search.resultsDisplayCollection;
 };
