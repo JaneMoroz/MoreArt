@@ -199,6 +199,9 @@ body {
   .search:focus-within {
     transform: translateY(-2px) scaleX(1.05);
     box-shadow: 0 0.7rem 3rem rgba(166, 166, 166, 0.125); }
+    @media only screen and (max-width: 48em) {
+      .search:focus-within {
+        transform: translateY(-2px) scaleX(1); } }
   .search__field {
     background-color: #fff1f1;
     border: none;
@@ -211,7 +214,7 @@ body {
         width: 25rem; } }
     @media only screen and (max-width: 48em) {
       .search__field {
-        width: 25rem; } }
+        width: 100%; } }
     .search__field:focus {
       outline: none; }
 

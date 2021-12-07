@@ -36,6 +36,10 @@
   &:focus-within {
     transform: translateY(-2px) scaleX(1.05);
     box-shadow: 0 0.7rem 3rem rgba($color-grey-light, 0.125);
+
+    @media only screen and (max-width: $bp-small) {
+      transform: translateY(-2px) scaleX(1);
+    }
   }
 
   &__field {
@@ -51,7 +55,7 @@
     }
 
     @media only screen and (max-width: $bp-small) {
-      width: 25rem;
+      width: 100%;
     }
 
     &:focus {
