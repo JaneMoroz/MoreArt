@@ -20,6 +20,18 @@ class GalleryView {
     });
   }
 
+  addHandlerDetailsClick(handler) {
+    this.#parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.gallery__item-caption-btn');
+
+      if (!btn) return;
+
+      const cellNum = +btn.dataset.cell;
+
+      handler(cellNum);
+    });
+  }
+
   renderGallery(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
@@ -70,7 +82,7 @@ class GalleryView {
         <figcaption class="gallery__item-caption">
           <p class="gallery__item-caption-title">${cell.title}</p>
           <p class="gallery__item-caption-artist">${cell.artistName}</p>
-          <button class="btn gallery__item-caption-btn">Details</button>
+          <button data-cell=${i} class="btn gallery__item-caption-btn">Details</button>
         </figcaption>
     </figure>
     `;

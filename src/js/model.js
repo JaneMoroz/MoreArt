@@ -177,6 +177,8 @@ export const loadSearchResults = async function (query) {
   }
 };
 
+export const loadDetails = async function (cell) {};
+
 // Function that returns an array of 6 results according to the page
 // (display per one page = 6)
 // If page = 1, returns obg1-obj6, if page = 2 returns obj7-obj12

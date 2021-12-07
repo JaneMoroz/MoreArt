@@ -2,6 +2,7 @@ import * as model from './model.js';
 import galleryView from './views/galleryView.js';
 import searchView from './views/searchView.js';
 import searchResultsGalleryView from './views/searchResultsGalleryView.js';
+import detailsView from './views/detailsView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -70,9 +71,17 @@ const controlPagination = function (goToPage) {
   );
 };
 
+const controlDetails = function (cell) {
+  const details = model.state.currentDisplayCollection[cell];
+  console.log(details);
+  detailsView.render(details);
+  detailsView.animateImgs();
+};
+
 const init = function () {
   galleryView.addHandlerRender(controlGallery);
   galleryView.addHandlerClick(controlUpdateGallery);
+  galleryView.addHandlerDetailsClick(controlDetails);
   searchView.addHandlerSearch(controlSearchResults);
 };
 
