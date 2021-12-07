@@ -1,48 +1,57 @@
 import iconsUrl from '../../img/icons.svg';
 const [icons] = iconsUrl.split('?');
 
-class GalleryView {
-  #parentEl = document.querySelector('.gallery--1');
-  #data;
-  #errorMessage = 'Something went wrong! Try again later.';
+export default class GalleryView {
+  _data;
+  _search;
 
-  addHandlerRender(handler) {
-    window.addEventListener('load', handler);
+  render(data, search = {}) {
+    // Check if data exists
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderError();
+
+    // Save data
+    this._data = data;
+    // Save search data (searchResult Gallery)
+    this._search = search;
+    // Create markup
+    const markup = this._generateMarkup();
+    // Clear parent container first
+    this._clear();
+    // Insert markup
+    this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    // Position buttons according to screen width
+    this.positionButtons();
   }
 
-  addHandlerClick(handler) {
-    this.#parentEl.addEventListener('click', function (e) {
-      const btn = e.target.closest('.gallery__refresh-btn');
-
-      if (!btn) return;
-
-      handler();
-    });
-  }
-
+  // Add handler to details button
   addHandlerDetailsClick(handler) {
-    this.#parentEl.addEventListener('click', function (e) {
+    this._parentEl.addEventListener('click', function (e) {
       const btn = e.target.closest('.gallery__item-caption-btn');
 
       if (!btn) return;
 
+      // Get cell number where the button was clicked
       const cellNum = +btn.dataset.cell;
+      console.log(this);
 
-      handler(cellNum);
+      // Search Gallery => pass boolean = true
+      if (this.classList.contains('search-results')) {
+        handler(cellNum, true);
+      }
+      // Main Gallery
+      else {
+        handler(cellNum);
+      }
     });
   }
 
-  renderGallery(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+  // Clear element
+  _clear() {
+    this._parentEl.innerHTML = '';
   }
 
-  #clear() {
-    this.#parentEl.innerHTML = '';
-  }
-
+  // Render loading spinner
   renderSpinner = function () {
     const markup = `
     <div class="spinner">
@@ -51,22 +60,28 @@ class GalleryView {
       </svg>
     </div>
   `;
-    this.#parentEl.innerHTML = '';
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+    this._parentEl.innerHTML = '';
+    this._parentEl.insertAdjacentHTML('afterbegin', markup);
   };
 
-  #generateMarkup() {
-    return `
-    <button class="btn-icon btn-icon--refresh gallery__refresh-btn">
-      <svg>
-        <use href="${icons}#icon-refresh"></use>
-      </svg>
-    </button>
-    ${this.#data.map((cell, i) => this.#generateCellMarkup(cell, i)).join('')}
+  // Render error
+  renderError(message = this._errorMessage) {
+    const markup = `
+    <div class="error">
+      <div>
+        <svg>
+          <use href="${icons}#icon-caution"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div>
     `;
+    this._clear();
+    this._parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 
-  #generateCellMarkup(cell, i) {
+  // Cell markup
+  _generateCellMarkup(cell, i) {
     return `
     <figure class="gallery__item gallery__item--${i + 1}">
       <button class="btn-icon btn-icon--heart-outline gallery__item-like">
@@ -87,21 +102,4 @@ class GalleryView {
     </figure>
     `;
   }
-
-  renderError(message = this.#errorMessage) {
-    const markup = `
-    <div class="error">
-      <div>
-        <svg>
-          <use href="${icons}#icon-caution"></use>
-        </svg>
-      </div>
-      <p>${message}</p>
-    </div>
-    `;
-    this.#clear();
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
-  }
 }
-
-export default new GalleryView();

@@ -1,5 +1,5 @@
 import * as model from './model.js';
-import galleryView from './views/galleryView.js';
+import mainGalleryView from './views/mainGalleryView.js';
 import searchView from './views/searchView.js';
 import searchResultsGalleryView from './views/searchResultsGalleryView.js';
 import detailsView from './views/detailsView.js';
@@ -11,33 +11,35 @@ import 'regenerator-runtime/runtime';
 const controlGallery = async function () {
   try {
     // 1. Render spinner
-    galleryView.renderSpinner();
+    mainGalleryView.renderSpinner();
 
     // 2. Load gallery
     await model.loadGallery();
 
     // 3. Render gallery
-    galleryView.renderGallery(model.state.currentDisplayCollection);
+    mainGalleryView.render(model.state.currentDisplayCollection);
   } catch (err) {
-    galleryView.renderError();
+    mainGalleryView.renderError();
   }
 };
 
+// Refresh gallery without reloading, using refresh btn
 const controlUpdateGallery = async function () {
   try {
     // 1. Render spinner
-    galleryView.renderSpinner();
+    mainGalleryView.renderSpinner();
 
     // 2. Load gallery
     await model.updateGallery();
 
     // 3. Render gallery
-    galleryView.renderGallery(model.state.currentDisplayCollection);
+    mainGalleryView.render(model.state.currentDisplayCollection);
   } catch (err) {
-    galleryView.renderError();
+    mainGalleryView.renderError();
   }
 };
 
+// Load and show search results
 const controlSearchResults = async function () {
   try {
     // 1. Render spinner
@@ -51,37 +53,51 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 4. Render results
-    searchResultsGalleryView.renderResults(
+    searchResultsGalleryView.render(
       model.getSearchResultsPage(),
       model.state.search
     );
 
     // 5. Add Event listener to pagination btns
-    searchResultsGalleryView.addHandlerClick(controlPagination);
+    // searchResultsGalleryView.addHandlerClick(controlPagination);
   } catch (err) {
     searchResultsGalleryView.renderError();
   }
 };
 
+// Go to another page => update search results gallery
 const controlPagination = function (goToPage) {
   // Render NEW results
-  searchResultsGalleryView.renderResults(
+  searchResultsGalleryView.render(
     model.getSearchResultsPage(goToPage),
     model.state.search
   );
 };
 
-const controlDetails = function (cell) {
-  const details = model.state.currentDisplayCollection[cell];
-  console.log(details);
+// Show details
+const controlDetails = function (cell, search = false) {
+  let details = {};
+  // Search Gallery
+  if (search) {
+    details = model.state.search.resultsDisplayCollection[cell];
+  }
+
+  // Main Gallery
+  if (!search) {
+    details = model.state.currentDisplayCollection[cell];
+  }
+  // Render details modal
   detailsView.render(details);
+  // Animate images
   detailsView.animateImgs();
 };
 
 const init = function () {
-  galleryView.addHandlerRender(controlGallery);
-  galleryView.addHandlerClick(controlUpdateGallery);
-  galleryView.addHandlerDetailsClick(controlDetails);
+  mainGalleryView.addHandlerRender(controlGallery);
+  mainGalleryView.addHandlerRefreshClick(controlUpdateGallery);
+  mainGalleryView.addHandlerDetailsClick(controlDetails);
+  searchResultsGalleryView.addHandlerClick(controlPagination);
+  searchResultsGalleryView.addHandlerDetailsClick(controlDetails);
   searchView.addHandlerSearch(controlSearchResults);
 };
 

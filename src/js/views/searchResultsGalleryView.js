@@ -1,87 +1,122 @@
+import galleryView from './galleryView.js';
 import iconsUrl from '../../img/icons.svg';
 const [icons] = iconsUrl.split('?');
 
-class SearchResultsGalleryView {
-  #parentEl = document.querySelector('.search-results');
-  #data;
-  #search;
-  #errorMessage = 'Nothing found. Please try again!';
+class SearchResultsGalleryView extends galleryView {
+  _parentEl = document.querySelector('.search-results');
+  _errorMessage = 'Nothing found. Please try again!';
 
+  // Add handler to next/previous page buttons
   addHandlerClick(handler) {
-    this.#parentEl.addEventListener('click', function (e) {
+    this._parentEl.addEventListener('click', function (e) {
       const btn = e.target.closest('.search-results__gallery-btn');
 
       if (!btn) return;
 
+      // Get page number
       const goToPage = +btn.dataset.goto;
 
+      // Pass page number
       handler(goToPage);
     });
   }
 
-  renderResults(data, search) {
-    this.#data = data;
-    this.#search = search;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+  // Position previous/next page buttons according to screen width
+  positionButtons() {
+    const previousBtn = document.querySelector(
+      '.search-results__gallery-btn--previous'
+    );
+    const nextBtn = document.querySelector(
+      '.search-results__gallery-btn--next'
+    );
+    const footer = document.querySelector('.footer');
+    const searchGallery = document.querySelector('.gallery--2');
+
+    var mediaQuery = window.matchMedia('(max-width: 1024px)');
+    if (mediaQuery.matches) {
+      // Fixed Position Buttons: Intersection Observer API
+      // Previous button
+      if (previousBtn) {
+        previousBtn.classList.add('sticky');
+        const fixPreviousBtn = function (entries) {
+          const [entry] = entries;
+
+          if (!entry.isIntersecting) {
+            previousBtn.classList.add('hidden');
+          } else {
+            previousBtn.classList.remove('hidden');
+          }
+        };
+
+        const previousBtnObserver = new IntersectionObserver(fixPreviousBtn, {
+          root: null,
+          threshold: 0,
+          rootMargin: `-${0}px`,
+        });
+        previousBtnObserver.observe(searchGallery);
+      }
+
+      // Next Button
+      if (nextBtn) {
+        nextBtn.classList.add('sticky');
+        const fixNextBtn = function (entries) {
+          const [entry] = entries;
+
+          if (!entry.isIntersecting) {
+            nextBtn.classList.add('hidden');
+          } else {
+            nextBtn.classList.remove('hidden');
+          }
+        };
+
+        const nextBtnObserver = new IntersectionObserver(fixNextBtn, {
+          root: null,
+          threshold: 0,
+          rootMargin: `-${0}px`,
+        });
+        nextBtnObserver.observe(searchGallery);
+      }
+
+      // Hide Buttons When The Footer Appears
+      const hideBtns = function (entries) {
+        const [entry] = entries;
+
+        if (entry.isIntersecting) {
+          previousBtn?.classList.add('hidden');
+          nextBtn?.classList.add('hidden');
+        } else {
+          previousBtn?.classList.remove('hidden');
+          nextBtn?.classList.remove('hidden');
+        }
+      };
+
+      const btnsObserver = new IntersectionObserver(hideBtns, {
+        root: null,
+        threshold: 0,
+        rootMargin: `-${0}px`,
+      });
+      btnsObserver.observe(footer);
+    }
   }
 
-  #clear() {
-    this.#parentEl.innerHTML = '';
-  }
-
-  renderSpinner = function () {
-    const markup = `
-    <div class="spinner">
-      <svg>
-        <use href="${icons}#icon-refresh"></use>
-      </svg>
-    </div>
-  `;
-    this.#parentEl.innerHTML = '';
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
-  };
-
-  #generateMarkup() {
+  _generateMarkup() {
     return `
     <p class="search-results__text">
-      Search Results for <span>“${this.#search.query}”</span>
+      Search Results for <span>“${this._search.query}”</span>
     </p>
 
     <div class="gallery gallery--2 search-results__gallery">
-      ${this.#generatePaginationMarkup()}
-      ${this.#data.map((cell, i) => this.#generateCellMarkup(cell, i)).join('')}
+      ${this._generatePaginationMarkup()}
+      ${this._data.map((cell, i) => this._generateCellMarkup(cell, i)).join('')}
     </div>
     `;
   }
 
-  #generateCellMarkup(cell, i) {
-    return `
-    <figure class="gallery__item gallery__item--${i + 1}">
-      <button class="btn-icon btn-icon--heart-outline gallery__item-like">
-          <svg>
-            <use href="${icons}#icon-heart-outlined"></use>
-          </svg>
-        </button>
-        <img
-          src="${cell.primaryImageSmall}"
-          alt="${cell.title}"
-          class="gallery__item-img"
-        />
-        <figcaption class="gallery__item-caption">
-          <p class="gallery__item-caption-title">${cell.title}</p>
-          <p class="gallery__item-caption-artist">${cell.artistName}</p>
-          <button class="btn gallery__item-caption-btn">Details</button>
-        </figcaption>
-    </figure>
-    `;
-  }
-
-  #generatePaginationMarkup() {
-    const currentPage = this.#search.page;
+  // Pagination Buttons Markup
+  _generatePaginationMarkup() {
+    const currentPage = this._search.page;
     const numPages = Math.ceil(
-      this.#search.resultsCollection.length / this.#search.resultsPerPage
+      this._search.resultsCollection.length / this._search.resultsPerPage
     );
     // Page 1, and there are other pages
     if (currentPage === 1 && numPages > 1) {
@@ -145,21 +180,6 @@ class SearchResultsGalleryView {
 
     // Page 1, and there are NO pages
     return '';
-  }
-
-  renderError(message = this.#errorMessage) {
-    const markup = `
-    <div class="error">
-      <div>
-        <svg>
-          <use href="${icons}#icon-caution"></use>
-        </svg>
-      </div>
-      <p>${message}</p>
-    </div>
-    `;
-    this.#clear();
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 }
 

@@ -15,7 +15,6 @@ class DetailsView {
   }
 
   render(data) {
-    console.log(metLogoSvg);
     this.#data = data;
     const markup = this.#generateMarkup();
     this.#clear();
