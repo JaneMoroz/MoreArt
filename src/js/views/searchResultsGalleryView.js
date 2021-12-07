@@ -118,7 +118,7 @@ class SearchResultsGalleryView {
     // Other Page
     if (currentPage < numPages) {
       return `
-        <button "${currentPage - 1}"
+        <button data-goto="${currentPage - 1}"
             class="
               btn
               search-results__gallery-btn search-results__gallery-btn--previous
@@ -129,7 +129,7 @@ class SearchResultsGalleryView {
             </svg>
             Page ${currentPage - 1}
           </button>
-          <button "${currentPage + 1}"
+          <button data-goto="${currentPage + 1}"
             class="
               btn
               search-results__gallery-btn search-results__gallery-btn--next
