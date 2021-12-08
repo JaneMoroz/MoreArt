@@ -3,7 +3,7 @@ import iconsUrl from '../../img/icons.svg';
 const [icons] = iconsUrl.split('?');
 
 // Main Gallery View
-class GalleryView extends galleryView {
+class MainGalleryView extends galleryView {
   _parentEl = document.querySelector('.gallery--1');
   _errorMessage = 'Something went wrong! Try again later.';
 
@@ -64,4 +64,4 @@ class GalleryView extends galleryView {
   }
 }
 
-export default new GalleryView();
+export default new MainGalleryView();

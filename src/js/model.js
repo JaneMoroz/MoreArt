@@ -48,6 +48,7 @@ export const state = {
     resultsPerPage: RES_PER_PAGE,
     page: 1,
   },
+  favorites: [],
 };
 
 const createCellObject = function (object) {
@@ -88,6 +89,9 @@ const loadCell = async function (cell) {
       const objectId = data.objectIDs[randomNum];
       // Get object by id
       const object = await loadObejectById(objectId);
+      // Check if the object is in favorites
+      const isFavorite = state.favorites.some(el => el.id === object.id);
+      if (isFavorite) object.favorite = true;
       // Save object to cell collection array
       cell.collection.push(object);
     }
@@ -109,12 +113,10 @@ const updateCell = async function (cell) {
 
     // 2. Get random index
     const randomIndex = Math.floor(Math.random() * numberOfObjects);
-    console.log(randomIndex);
 
     // 3. Update current dislay object
     const nextObject = cell.collection[randomIndex];
     cell.currentDisplay = nextObject;
-    console.log(nextObject);
     // 4. Update current display collection
     state.currentDisplayCollection.push(nextObject);
   } catch (err) {
@@ -164,11 +166,14 @@ export const loadSearchResults = async function (query) {
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${query}`);
     if (data.length === 0) throw new Error();
     // 2. Get 12 objects
-    for (let index = 0; index < 13; index++) {
+    for (let index = 0; index < 7; index++) {
       // Get objectId
       const objectId = data.objectIDs[index];
       // Get object by id
       const object = await loadObejectById(objectId);
+      // Check if the object is in favorites
+      const isFavorite = state.favorites.some(el => el.id === object.id);
+      if (isFavorite) object.favorite = true;
       // Save object to search collection array
       state.search.resultsCollection.push(object);
       if (state.search.resultsDisplayCollection.length < 7) {
@@ -179,8 +184,6 @@ export const loadSearchResults = async function (query) {
     throw error;
   }
 };
-
-export const loadDetails = async function (cell) {};
 
 // Function that returns an array of 6 results according to the page
 // (display per one page = 6)
@@ -198,4 +201,41 @@ export const getSearchResultsPage = function (page = state.search.page) {
   );
 
   return state.search.resultsDisplayCollection;
+};
+
+// Add object to favorites
+export const addFavorite = function (object) {
+  // Add favorite to the array
+  state.favorites.push(object);
+
+  // Mark object as favorite
+  object.favorite = true;
+
+  // Update local storage
+  localStorage.setItem('favorites', JSON.stringify(state.favorites));
+};
+
+// Delete object from favorite
+export const deleteFavorite = function (object) {
+  // Delete favorite from the array
+  const index = state.favorites.findIndex(el => el.id === object.id);
+  state.favorites.splice(index, 1);
+
+  // Mark object as NOT favorite
+  object.favorite = false;
+
+  // Update local storage
+  localStorage.setItem('favorites', JSON.stringify(state.favorites));
+};
+
+// Get favorites from the local storage
+const init = function () {
+  const storage = localStorage.getItem('favorites');
+  if (storage) state.favorites = JSON.parse(storage);
+};
+
+init();
+
+const clearFavorites = function () {
+  localStorage.clear('favorites');
 };

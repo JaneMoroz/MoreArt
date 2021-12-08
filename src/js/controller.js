@@ -3,6 +3,7 @@ import mainGalleryView from './views/mainGalleryView.js';
 import searchView from './views/searchView.js';
 import searchResultsGalleryView from './views/searchResultsGalleryView.js';
 import detailsView from './views/detailsView.js';
+import favoritesView from './views/favoritesView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -76,28 +77,78 @@ const controlPagination = function (goToPage) {
 
 // Show details
 const controlDetails = function (cell, search = false) {
-  let details = {};
+  try {
+    let details = {};
+    // Search Gallery
+    if (search) {
+      details = model.state.search.resultsDisplayCollection[cell];
+    }
+
+    // Main Gallery
+    if (!search) {
+      details = model.state.currentDisplayCollection[cell];
+    }
+    // Render details modal
+    detailsView.render(details);
+    // Animate images
+    detailsView.animateImgs();
+  } catch (err) {
+    detailsView.renderError();
+  }
+};
+
+// Add to favorites
+const controlAddFavorite = function (cellNum, search = false) {
+  let cell = {};
   // Search Gallery
   if (search) {
-    details = model.state.search.resultsDisplayCollection[cell];
+    cell = model.state.search.resultsDisplayCollection[cellNum];
+    console.log(cell);
   }
 
   // Main Gallery
   if (!search) {
-    details = model.state.currentDisplayCollection[cell];
+    cell = model.state.currentDisplayCollection[cellNum];
+    console.log(cell);
   }
-  // Render details modal
-  detailsView.render(details);
-  // Animate images
-  detailsView.animateImgs();
+  // 1. Add/remove favorite
+  if (!cell.favorite) model.addFavorite(cell);
+  else model.deleteFavorite(cell);
+
+  // 2. Update galley view
+  // If object added to favorites in search gallery
+  if (search) {
+    searchResultsGalleryView.update(
+      model.getSearchResultsPage(),
+      model.state.search
+    );
+  }
+
+  // If object added to favorites in main gallery
+  if (!search) {
+    mainGalleryView.update(model.state.currentDisplayCollection);
+  }
+
+  // 3. Render bookmarks
+  favoritesView.render(model.state.favorites);
+};
+
+// Load Favorites
+const controlFavorites = function () {
+  favoritesView.render(model.state.favorites);
 };
 
 const init = function () {
+  favoritesView.addHandlerRender(controlFavorites);
   mainGalleryView.addHandlerRender(controlGallery);
   mainGalleryView.addHandlerRefreshClick(controlUpdateGallery);
   mainGalleryView.addHandlerDetailsClick(controlDetails);
+  mainGalleryView.addHandlerAddFavorite(controlAddFavorite);
+
   searchResultsGalleryView.addHandlerClick(controlPagination);
   searchResultsGalleryView.addHandlerDetailsClick(controlDetails);
+  searchResultsGalleryView.addHandlerAddFavorite(controlAddFavorite);
+
   searchView.addHandlerSearch(controlSearchResults);
 };
 

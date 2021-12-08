@@ -24,6 +24,32 @@ export default class GalleryView {
     this.positionButtons();
   }
 
+  // Update without reloading (like button)
+  update(data, search = {}) {
+    this._data = data;
+    this._search = search;
+    const newMarkup = this._generateMarkup();
+
+    const newDom = document.createRange().createContextualFragment(newMarkup);
+    const newElements = Array.from(newDom.querySelectorAll('*'));
+    const curElements = Array.from(this._parentEl.querySelectorAll('*'));
+
+    newElements.forEach((newEl, i) => {
+      const curEl = curElements[i];
+
+      // Updates changed ATTRIBUTES
+      if (
+        !newEl.isEqualNode(curEl) &&
+        !newEl.classList.contains('search-results__gallery-btn') &&
+        !newEl.classList.contains('gallery__refresh-btn')
+      ) {
+        Array.from(newEl.attributes).forEach(attr =>
+          curEl.setAttribute(attr.name, attr.value)
+        );
+      }
+    });
+  }
+
   // Add handler to details button
   addHandlerDetailsClick(handler) {
     this._parentEl.addEventListener('click', function (e) {
@@ -33,7 +59,26 @@ export default class GalleryView {
 
       // Get cell number where the button was clicked
       const cellNum = +btn.dataset.cell;
-      console.log(this);
+
+      // Search Gallery => pass boolean = true
+      if (this.classList.contains('search-results')) {
+        handler(cellNum, true);
+      }
+      // Main Gallery
+      else {
+        handler(cellNum);
+      }
+    });
+  }
+
+  // Add handler to like button
+  addHandlerAddFavorite(handler) {
+    this._parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.gallery__item-like');
+      if (!btn) return;
+
+      // Get cell number where the button was clicked
+      const cellNum = +btn.dataset.cell;
 
       // Search Gallery => pass boolean = true
       if (this.classList.contains('search-results')) {
@@ -84,9 +129,11 @@ export default class GalleryView {
   _generateCellMarkup(cell, i) {
     return `
     <figure class="gallery__item gallery__item--${i + 1}">
-      <button class="btn-icon btn-icon--heart-outline gallery__item-like">
+      <button data-cell=${i} class="btn-icon btn-icon--heart-outline gallery__item-like">
           <svg>
-            <use href="${icons}#icon-heart-outlined"></use>
+            <use href="${icons}#icon-heart${
+      cell.favorite === true ? '' : '-outlined'
+    }"></use>
           </svg>
         </button>
         <img
