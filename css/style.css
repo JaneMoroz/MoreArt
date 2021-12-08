@@ -695,6 +695,10 @@ body {
   z-index: 1000;
   transition: all 0.5s; }
 
+.hidden {
+  visibility: hidden;
+  opacity: 0; }
+
 .footer {
   display: flex;
   align-items: center;
