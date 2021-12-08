@@ -96,6 +96,15 @@ const controlDetails = function (cellNum, search = false) {
   }
 };
 
+// Render details from favorites
+const controlFavoritesDetails = function (objectId) {
+  let object = {};
+  // 1. Find object by id in the favorites
+  object = model.state.favorites.find(el => el.id === objectId);
+  // 2. Render details
+  detailsView.render(object);
+};
+
 // Add to favorites from the details modal
 const controlDetailsAddFavorite = function (objectId, search = false) {
   let object = {};
@@ -112,6 +121,23 @@ const controlDetailsAddFavorite = function (objectId, search = false) {
       el => el.id === objectId
     );
   }
+
+  // If object is not on display in the main gallery or search gallery (means that 'like' manipulation are taken place from favorites drop down)
+  // If object is in favorites
+  if (!object) {
+    object = model.state.favorites.find(el => el.id === objectId);
+    // If object exists, means it is going to be removed => save it to the temporary variable
+    if (object) {
+      model.state.toRemoveFromFavorites = object;
+    }
+  }
+
+  // If object is already removed from the favorites, but it is liked again (details modal is still opened)
+  if (!object) {
+    object = model.state.toRemoveFromFavorites;
+    model.state.toRemoveFromFavorites = {};
+  }
+
   // 1. Add/remove favorite from favorites, and toggle like button, update main or serach gallery view, render favorites
   toggleFavorite(object, search);
 
@@ -166,6 +192,7 @@ const controlFavorites = function () {
 
 const init = function () {
   favoritesView.addHandlerRender(controlFavorites);
+  favoritesView.addHandlerObject(controlFavoritesDetails);
   mainGalleryView.addHandlerRender(controlGallery);
   mainGalleryView.addHandlerRefreshClick(controlUpdateGallery);
   mainGalleryView.addHandlerDetailsClick(controlDetails);

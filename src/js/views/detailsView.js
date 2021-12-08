@@ -85,7 +85,7 @@ class DetailsView {
       const btn = e.target.closest('.details__container-images-like');
       if (!btn) return;
 
-      // Get cell number where the button was clicked
+      // Get object id and gallery type where the button was clicked
       const objectId = +btn.dataset.object;
       const isFromSearchGalley = +btn.dataset.search === 1 ? true : false;
 

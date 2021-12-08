@@ -49,6 +49,7 @@ export const state = {
     page: 1,
   },
   favorites: [],
+  toRemoveFromFavorites: {},
 };
 
 const createCellObject = function (object) {
@@ -68,7 +69,7 @@ const createCellObject = function (object) {
   });
 };
 
-const loadObejectById = async function (id) {
+export const loadObejectById = async function (id) {
   try {
     const data = await AJAX(`${API_URL}objects/${id}`);
     return createCellObject(data);
@@ -107,7 +108,6 @@ const loadCell = async function (cell) {
 
 const updateCell = async function (cell) {
   try {
-    console.log(cell.collection);
     // 1. Get array length
     const numberOfObjects = cell.collection.length;
 

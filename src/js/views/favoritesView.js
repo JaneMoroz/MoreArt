@@ -10,6 +10,18 @@ class FavoritesView {
     window.addEventListener('load', handler);
   }
 
+  // Add handler to favorite object
+  addHandlerObject(handler) {
+    this._parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.favorites__list-item-link');
+      if (!btn) return;
+
+      // Get object id where the button was clicked
+      const objectId = +btn.dataset.object;
+      handler(objectId);
+    });
+  }
+
   render(data) {
     // Check if data exists
     if (!data || (Array.isArray(data) && data.length === 0))
@@ -66,7 +78,7 @@ class FavoritesView {
   _generatePreviewMarkup(favorite) {
     return `
     <li class="favorites__list-item">
-      <a class="favorites__list-item-link">
+      <a data-object=${favorite.id} class="favorites__list-item-link">
         <img src="${favorite.primaryImageSmall}" alt="${favorite.title}" />
       </a>
     </li>
