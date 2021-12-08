@@ -5,6 +5,7 @@ import metLogoSvg from '../../img/the-met.svg';
 class DetailsView {
   #parentEl = document.querySelector('.details__container');
   #data;
+  #searchGalleryOrigin;
 
   #window = document.querySelector('.details');
   #overlay = document.querySelector('.overlay');
@@ -14,14 +15,36 @@ class DetailsView {
     this.#addHandlerHideWindow();
   }
 
-  render(data) {
+  // Render, pass data and origin (true if object is in search gallery)
+  render(data, searchGalleryOrigin = false) {
     this.#data = data;
+    this.#searchGalleryOrigin = searchGalleryOrigin;
     const markup = this.#generateMarkup();
     this.#clear();
     this.#parentEl.insertAdjacentHTML('afterbegin', markup);
 
     this.#overlay.classList.toggle('hidden');
     this.#window.classList.toggle('hidden');
+  }
+
+  update(data) {
+    this.#data = data;
+    const newMarkup = this.#generateMarkup();
+
+    const newDom = document.createRange().createContextualFragment(newMarkup);
+    const newElements = Array.from(newDom.querySelectorAll('*'));
+    const curElements = Array.from(this.#parentEl.querySelectorAll('*'));
+
+    newElements.forEach((newEl, i) => {
+      const curEl = curElements[i];
+
+      // Updates changed ATTRIBUTES
+      if (!newEl.isEqualNode(curEl)) {
+        Array.from(newEl.attributes).forEach(attr =>
+          curEl.setAttribute(attr.name, attr.value)
+        );
+      }
+    });
   }
 
   animateImgs() {
@@ -56,6 +79,27 @@ class DetailsView {
     this.#overlay.addEventListener('click', this.toggleWindow.bind(this));
   }
 
+  // Add handler to like button
+  addHandlerAddFavorite(handler) {
+    this.#parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.details__container-images-like');
+      if (!btn) return;
+
+      // Get cell number where the button was clicked
+      const objectId = +btn.dataset.object;
+      const isFromSearchGalley = +btn.dataset.search === 1 ? true : false;
+
+      // Search Gallery => pass boolean = true
+      if (isFromSearchGalley) {
+        handler(objectId, true);
+      }
+      // Main Gallery
+      else {
+        handler(objectId);
+      }
+    });
+  }
+
   renderSpinner = function () {
     const markup = `
     <div class="spinner">
@@ -71,6 +115,15 @@ class DetailsView {
   #generateMarkup() {
     return `
       <div class="details__container-images">
+        <button data-object=${this.#data.id} data-search=${
+      this.#searchGalleryOrigin === true ? '1' : '0'
+    } class="btn-icon btn-icon--heart-outline details__container-images-like">
+          <svg>
+            <use href="${icons}#icon-heart${
+      this.#data.favorite === true ? '' : '-outlined'
+    }"></use>
+          </svg>
+        </button>
         <div
           class="details__container-image details__container-image--active"
         >
