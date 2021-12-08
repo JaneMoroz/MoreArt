@@ -58,9 +58,6 @@ const controlSearchResults = async function () {
       model.getSearchResultsPage(),
       model.state.search
     );
-
-    // 5. Add Event listener to pagination btns
-    // searchResultsGalleryView.addHandlerClick(controlPagination);
   } catch (err) {
     searchResultsGalleryView.renderError();
   }
@@ -82,7 +79,7 @@ const controlDetails = function (cellNum, search = false) {
     // Search Gallery
     if (search) {
       cell = model.state.search.resultsDisplayCollection[cellNum];
-      // Render details modal, pass (in aadition to object) boolean (object is from search gallery)
+      // Render details modal, pass (in addition to object) boolean (trie if the object is from search gallery)
       detailsView.render(cell, true);
     }
 
@@ -99,29 +96,50 @@ const controlDetails = function (cellNum, search = false) {
   }
 };
 
-const controlDetailsAddToFavorites = function (objectId, search = false) {
+// Add to favorites from the details modal
+const controlDetailsAddFavorite = function (objectId, search = false) {
   let object = {};
-  // Search Gallery
+  // Get object from the Search Gallery
   if (search) {
     object = model.state.search.resultsDisplayCollection.find(
       el => el.id === objectId
     );
-    console.log(object);
   }
 
-  // Main Gallery
+  // Get object from the Main Gallery
   if (!search) {
     object = model.state.currentDisplayCollection.find(
       el => el.id === objectId
     );
-    console.log(object);
   }
-  // 1. Add/remove favorite
-  if (!object.favorite) model.addFavorite(object);
-  else model.deleteFavorite(object);
+  // 1. Add/remove favorite from favorites, and toggle like button, update main or serach gallery view, render favorites
+  toggleFavorite(object, search);
 
   // 2. Update details view
   detailsView.update(object);
+};
+
+// Add to favorites
+const controlAddFavorite = function (cellNum, search = false) {
+  let object = {};
+  // Get object from the Search Gallery
+  if (search) {
+    object = model.state.search.resultsDisplayCollection[cellNum];
+  }
+
+  // Get object from the Search Gallery
+  if (!search) {
+    object = model.state.currentDisplayCollection[cellNum];
+  }
+  // 1. Add/remove favorite from favorites, and toggle like button, update main or serach gallery view, render favorites
+  toggleFavorite(object, search);
+};
+
+// Toggle favorite
+const toggleFavorite = function (object, search) {
+  // 1. Add/remove favorite
+  if (!object.favorite) model.addFavorite(object);
+  else model.deleteFavorite(object);
 
   // 3. Update galley view
   // If object added to favorites in search gallery
@@ -138,42 +156,6 @@ const controlDetailsAddToFavorites = function (objectId, search = false) {
   }
 
   // 4. Render favorites
-  favoritesView.render(model.state.favorites);
-};
-
-// Add to favorites
-const controlAddFavorite = function (cellNum, search = false) {
-  let object = {};
-  // Search Gallery
-  if (search) {
-    object = model.state.search.resultsDisplayCollection[cellNum];
-    console.log(object);
-  }
-
-  // Main Gallery
-  if (!search) {
-    object = model.state.currentDisplayCollection[cellNum];
-    console.log(object);
-  }
-  // 1. Add/remove favorite
-  if (!object.favorite) model.addFavorite(object);
-  else model.deleteFavorite(object);
-
-  // 2. Update galley view
-  // If object added to favorites in search gallery
-  if (search) {
-    searchResultsGalleryView.update(
-      model.getSearchResultsPage(),
-      model.state.search
-    );
-  }
-
-  // If object added to favorites in main gallery
-  if (!search) {
-    mainGalleryView.update(model.state.currentDisplayCollection);
-  }
-
-  // 3. Render favorites
   favoritesView.render(model.state.favorites);
 };
 
@@ -194,7 +176,7 @@ const init = function () {
   searchResultsGalleryView.addHandlerAddFavorite(controlAddFavorite);
 
   searchView.addHandlerSearch(controlSearchResults);
-  detailsView.addHandlerAddFavorite(controlDetailsAddToFavorites);
+  detailsView.addHandlerAddFavorite(controlDetailsAddFavorite);
 };
 
 init();
