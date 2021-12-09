@@ -62,6 +62,35 @@ class MainGalleryView extends galleryView {
     ${this._data.map((cell, i) => this._generateCellMarkup(cell, i)).join('')}
     `;
   }
+
+  renderOptionsLayer() {
+    const allCells = document.querySelectorAll('.gallery__item');
+    const markup = this._genereteOptionsLayoutMarkup();
+
+    console.log(markup);
+
+    allCells.forEach(cell => {
+      cell.classList.add('disactivated');
+      cell.insertAdjacentHTML('afterbegin', markup);
+    });
+  }
+
+  _genereteOptionsLayoutMarkup() {
+    return `
+    <div class="gallery__item-display-options">
+      <button
+        class="
+          btn-icon btn-icon--pencil
+          gallery__item-display-options-btn
+        "
+      >
+        <svg>
+          <use href="${icons}#icon-pencil"></use>
+        </svg>
+      </button>
+    </div>
+    `;
+  }
 }
 
 export default new MainGalleryView();

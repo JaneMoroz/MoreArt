@@ -1,6 +1,8 @@
 import { API_URL, RES_PER_PAGE } from './config.js';
 import { AJAX } from './helpers';
 
+///////////////////////////////////////////////////////////////////
+// State
 export const state = {
   gallery: {
     cell1: {
@@ -52,6 +54,8 @@ export const state = {
   toRemoveFromFavorites: {},
 };
 
+///////////////////////////////////////////////////////////////////
+// Create object with needed property
 const createCellObject = function (object) {
   return (cellObject = {
     id: object.objectID,
@@ -69,6 +73,8 @@ const createCellObject = function (object) {
   });
 };
 
+///////////////////////////////////////////////////////////////////
+// Load object by id
 export const loadObejectById = async function (id) {
   try {
     const data = await AJAX(`${API_URL}objects/${id}`);
@@ -78,6 +84,8 @@ export const loadObejectById = async function (id) {
   }
 };
 
+///////////////////////////////////////////////////////////////////
+// Load each cell data
 const loadCell = async function (cell) {
   try {
     // 1. Load ids corresponding to filter
@@ -106,24 +114,29 @@ const loadCell = async function (cell) {
   }
 };
 
+///////////////////////////////////////////////////////////////////
+// Update each cell display object to the next from cell's collection
 const updateCell = async function (cell) {
   try {
-    // 1. Get array length
+    // 2. Get cell's collection array length
     const numberOfObjects = cell.collection.length;
+    // 3. Update current display object
+    if (cell.currentDisplayId >= numberOfObjects - 1) {
+      cell.currentDisplayId = 0;
+    } else {
+      cell.currentDisplayId++;
+    }
+    cell.currentDisplay = cell.collection[cell.currentDisplayId];
 
-    // 2. Get random index
-    const randomIndex = Math.floor(Math.random() * numberOfObjects);
-
-    // 3. Update current dislay object
-    const nextObject = cell.collection[randomIndex];
-    cell.currentDisplay = nextObject;
     // 4. Update current display collection
-    state.currentDisplayCollection.push(nextObject);
+    state.currentDisplayCollection.push(cell.currentDisplay);
   } catch (err) {
     throw err;
   }
 };
 
+///////////////////////////////////////////////////////////////////
+// Load gallery by loading each cell
 export const loadGallery = async function () {
   try {
     // const cells = Object.values(state.gallery);
@@ -132,18 +145,22 @@ export const loadGallery = async function () {
     //   await loadCell(cell);
     // }
 
-    await loadCell(state.gallery.cell3);
+    await loadCell(state.gallery.cell1);
+    await loadCell(state.gallery.cell2);
   } catch (err) {
     throw err;
   }
 };
 
+///////////////////////////////////////////////////////////////////
+// Update gallery by updating each cell
 export const updateGallery = async function () {
   try {
     // 1. Clear current display collection array
     state.currentDisplayCollection = [];
 
-    await updateCell(state.gallery.cell3);
+    await updateCell(state.gallery.cell1);
+    await updateCell(state.gallery.cell2);
     // const cells = Object.values(state.gallery);
 
     // for (const cell of cells) {
@@ -154,6 +171,8 @@ export const updateGallery = async function () {
   }
 };
 
+///////////////////////////////////////////////////////////////////
+// Load search results by query
 export const loadSearchResults = async function (query) {
   try {
     // 0. Clear results collection
@@ -185,6 +204,7 @@ export const loadSearchResults = async function (query) {
   }
 };
 
+///////////////////////////////////////////////////////////////////
 // Function that returns an array of 6 results according to the page
 // (display per one page = 6)
 // If page = 1, returns obg1-obj6, if page = 2 returns obj7-obj12
@@ -203,6 +223,7 @@ export const getSearchResultsPage = function (page = state.search.page) {
   return state.search.resultsDisplayCollection;
 };
 
+///////////////////////////////////////////////////////////////////
 // Add object to favorites
 export const addFavorite = function (object) {
   // Add favorite to the array
@@ -215,7 +236,8 @@ export const addFavorite = function (object) {
   localStorage.setItem('favorites', JSON.stringify(state.favorites));
 };
 
-// Delete object from favorite
+///////////////////////////////////////////////////////////////////
+// Delete object from favorites
 export const deleteFavorite = function (object) {
   // Delete favorite from the array
   const index = state.favorites.findIndex(el => el.id === object.id);
@@ -228,6 +250,7 @@ export const deleteFavorite = function (object) {
   localStorage.setItem('favorites', JSON.stringify(state.favorites));
 };
 
+///////////////////////////////////////////////////////////////////
 // Get favorites from the local storage
 const init = function () {
   const storage = localStorage.getItem('favorites');
@@ -236,6 +259,8 @@ const init = function () {
 
 init();
 
+///////////////////////////////////////////////////////////////////
+// Clear storage (for future use)
 const clearFavorites = function () {
   localStorage.clear('favorites');
 };

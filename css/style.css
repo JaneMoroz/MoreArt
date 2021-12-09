@@ -461,7 +461,7 @@ body {
       width: 100%;
       z-index: 6000; }
       .gallery__item-display-options-btn {
-        display: none;
+        display: flex;
         margin: 1.4rem; }
 
 .gallery__item:not(.disactivated):hover > .gallery__item-caption {

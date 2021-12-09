@@ -5,7 +5,7 @@ import metLogoSvg from '../../img/the-met.svg';
 class DetailsView {
   #parentEl = document.querySelector('.details__container');
   #data;
-  #searchGalleryOrigin;
+  #origin;
 
   #window = document.querySelector('.details');
   #overlay = document.querySelector('.overlay');
@@ -16,9 +16,9 @@ class DetailsView {
   }
 
   // Render, pass data and origin (true if object is in search gallery)
-  render(data, searchGalleryOrigin = false) {
+  render(data, origin) {
     this.#data = data;
-    this.#searchGalleryOrigin = searchGalleryOrigin;
+    this.#origin = origin;
     const markup = this.#generateMarkup();
     this.#clear();
     this.#parentEl.insertAdjacentHTML('afterbegin', markup);
@@ -85,18 +85,12 @@ class DetailsView {
       const btn = e.target.closest('.details__container-images-like');
       if (!btn) return;
 
-      // Get object id and gallery type where the button was clicked
-      const objectId = +btn.dataset.object;
-      const isFromSearchGalley = +btn.dataset.search === 1 ? true : false;
+      // Get objectId and origin
+      const objectId = +btn.dataset.id;
+      const objectOrigin = btn.dataset.origin;
 
-      // Search Gallery => pass boolean = true
-      if (isFromSearchGalley) {
-        handler(objectId, true);
-      }
-      // Main Gallery
-      else {
-        handler(objectId);
-      }
+      // Boolena = true, means add/remove favourite takes place in details modal
+      handler(objectId, objectOrigin, true);
     });
   }
 
@@ -115,9 +109,9 @@ class DetailsView {
   #generateMarkup() {
     return `
       <div class="details__container-images">
-        <button data-object=${this.#data.id} data-search=${
-      this.#searchGalleryOrigin === true ? '1' : '0'
-    } class="btn-icon btn-icon--heart-outline details__container-images-like">
+        <button data-id=${this.#data.id} data-origin="${
+      this.#origin
+    }" class="btn-icon btn-icon--heart-outline details__container-images-like">
           <svg>
             <use href="${icons}#icon-heart${
       this.#data.favorite === true ? '' : '-outlined'

@@ -57,17 +57,11 @@ export default class GalleryView {
 
       if (!btn) return;
 
-      // Get cell number where the button was clicked
-      const cellNum = +btn.dataset.cell;
+      // Get objectId and objectOrigin where the button was clicked
+      const objectId = +btn.dataset.id;
+      const objectOrigin = btn.dataset.origin;
 
-      // Search Gallery => pass boolean = true
-      if (this.classList.contains('search-results')) {
-        handler(cellNum, true);
-      }
-      // Main Gallery
-      else {
-        handler(cellNum);
-      }
+      handler(objectId, objectOrigin);
     });
   }
 
@@ -77,17 +71,11 @@ export default class GalleryView {
       const btn = e.target.closest('.gallery__item-like');
       if (!btn) return;
 
-      // Get cell number where the button was clicked
-      const cellNum = +btn.dataset.cell;
+      // Get objectId and objectOrigin where the button was clicked
+      const objectId = +btn.dataset.id;
+      const objectOrigin = btn.dataset.origin;
 
-      // Search Gallery => pass boolean = true
-      if (this.classList.contains('search-results')) {
-        handler(cellNum, true);
-      }
-      // Main Gallery
-      else {
-        handler(cellNum);
-      }
+      handler(objectId, objectOrigin);
     });
   }
 
@@ -129,7 +117,9 @@ export default class GalleryView {
   _generateCellMarkup(cell, i) {
     return `
     <figure class="gallery__item gallery__item--${i + 1}">
-      <button data-cell=${i} class="btn-icon btn-icon--heart-outline gallery__item-like">
+      <button data-id=${cell.id} data-origin=${
+      Object.keys(this._search).length === 0 ? 'mainGalley' : 'searchGallery'
+    } class="btn-icon btn-icon--heart-outline gallery__item-like">
           <svg>
             <use href="${icons}#icon-heart${
       cell.favorite === true ? '' : '-outlined'
@@ -144,7 +134,9 @@ export default class GalleryView {
         <figcaption class="gallery__item-caption">
           <p class="gallery__item-caption-title">${cell.title}</p>
           <p class="gallery__item-caption-artist">${cell.artistName}</p>
-          <button data-cell=${i} class="btn gallery__item-caption-btn">Details</button>
+          <button data-id=${cell.id} data-origin=${
+      Object.keys(this._search).length === 0 ? 'mainGalley' : 'searchGallery'
+    } class="btn gallery__item-caption-btn">Details</button>
         </figcaption>
     </figure>
     `;
