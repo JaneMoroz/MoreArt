@@ -9,36 +9,42 @@ export const state = {
       collection: [], // 10 objects, randomly chosen from the array, using filter (use only 2 for testing for now)
       currentDisplayId: 0, // id of object from collection array to display
       currentDisplay: {},
+      filterFamily: 'Department',
       filter: 'European Paintings',
     },
     cell2: {
       collection: [],
       currentDisplayId: 0,
       currentDisplay: {},
+      filterFamily: 'Geo',
       filter: 'France',
     },
     cell3: {
       collection: [],
       currentDisplayId: 0,
       currentDisplay: {},
+      filterFamily: 'Geo',
       filter: 'American',
     },
     cell4: {
       collection: [],
       currentDisplayId: 0,
       currentDisplay: {},
+      filterFamily: 'Department',
       filter: 'Medieval Art',
     },
     cell5: {
       collection: [],
       currentDisplayId: 0,
       currentDisplay: {},
+      filterFamily: 'Department',
       filter: 'European Paintings',
     },
     cell6: {
       collection: [],
       currentDisplayId: 0,
       currentDisplay: {},
+      filterFamily: 'Department',
       filter: 'Photographs',
     },
   },
@@ -52,6 +58,7 @@ export const state = {
   },
   favorites: [],
   toRemoveFromFavorites: {},
+  inOptionsMode: false,
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -88,6 +95,10 @@ export const loadObejectById = async function (id) {
 // Load each cell data
 const loadCell = async function (cell) {
   try {
+    // 0. Empty cell
+    cell.collection = [];
+    cell.currentDisplayId = 0;
+    cell.currentDisplay = {};
     // 1. Load ids corresponding to filter
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${cell.filter}`);
     // 2. Get two random objects
@@ -144,6 +155,8 @@ export const loadGallery = async function () {
     // for (const cell of cells) {
     //   await loadCell(cell);
     // }
+
+    state.currentDisplayCollection = [];
 
     await loadCell(state.gallery.cell1);
     await loadCell(state.gallery.cell2);

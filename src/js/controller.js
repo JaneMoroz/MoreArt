@@ -38,6 +38,8 @@ const controlUpdateGallery = async function () {
 
     // 3. Render gallery
     mainGalleryView.render(model.state.currentDisplayCollection);
+    // 4. Set optionMode to false in case it was activated before refresh btn was clicked
+    model.state.inOptionsMode = false;
   } catch (err) {
     mainGalleryView.renderError();
   }
@@ -200,7 +202,39 @@ const controlFavorites = function () {
 ///////////////////////////////////////////////////////////////////
 // Load options layer
 const controlOptions = function () {
-  mainGalleryView.renderOptionsLayer();
+  if (model.state.inOptionsMode === false) {
+    mainGalleryView.renderOptionsLayer();
+    model.state.inOptionsMode = true;
+  } else {
+    mainGalleryView.render(model.state.currentDisplayCollection);
+    model.state.inOptionsMode = false;
+  }
+};
+
+// Load options change layer
+const controlChangeOptions = function (cellNum) {
+  // Get cell information
+  const cells = Object.values(model.state.gallery);
+  const cell = cells[cellNum];
+
+  mainGalleryView.renderOptionsChangeLayer(cellNum, cell);
+
+  mainGalleryView.renderHideCellOptions(cellNum);
+};
+
+const controlUpdateCellFilter = async function (cellNum, filterFamily, filter) {
+  try {
+    const cell = model.state.gallery[`cell${cellNum + 1}`];
+    cell.filterFamily = filterFamily;
+    cell.filter = filter;
+
+    mainGalleryView.renderSpinner();
+    await model.loadGallery();
+    mainGalleryView.render(model.state.currentDisplayCollection);
+    model.state.inOptionsMode = false;
+  } catch (err) {
+    mainGalleryView.renderError();
+  }
 };
 
 const init = function () {
@@ -211,6 +245,8 @@ const init = function () {
   mainGalleryView.addHandlerRefreshClick(controlUpdateGallery);
   mainGalleryView.addHandlerDetailsClick(controlDetails);
   mainGalleryView.addHandlerAddFavorite(controlAddFavorite);
+  mainGalleryView.addHandlerChangeClick(controlChangeOptions);
+  mainGalleryView.addHandlerFormSubmit(controlUpdateCellFilter);
 
   searchResultsGalleryView.addHandlerClick(controlPagination);
   searchResultsGalleryView.addHandlerDetailsClick(controlDetails);
