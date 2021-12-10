@@ -164,14 +164,14 @@ export const loadGallery = async function () {
     // 1. Clear current display collection array(needed for when the cell filter is changed)
     state.currentDisplayCollection = [];
 
-    // const cells = Object.values(state.gallery);
+    const cells = Object.values(state.gallery);
 
-    // for (const cell of cells) {
-    //   await loadCell(cell);
-    // }
+    for (const cell of cells) {
+      await loadCell(cell);
+    }
 
-    await loadCell(state.gallery.cell1);
-    await loadCell(state.gallery.cell2);
+    // await loadCell(state.gallery.cell1);
+    // await loadCell(state.gallery.cell2);
   } catch (err) {
     throw err;
   }
@@ -184,13 +184,13 @@ export const updateGallery = async function () {
     // 1. Clear current display collection array
     state.currentDisplayCollection = [];
 
-    await updateCell(state.gallery.cell1);
-    await updateCell(state.gallery.cell2);
-    // const cells = Object.values(state.gallery);
+    // await updateCell(state.gallery.cell1);
+    // await updateCell(state.gallery.cell2);
+    const cells = Object.values(state.gallery);
 
-    // for (const cell of cells) {
-    //   await updateCell(cell);
-    // }
+    for (const cell of cells) {
+      await updateCell(cell);
+    }
   } catch (err) {
     throw err;
   }
@@ -210,7 +210,7 @@ export const loadSearchResults = async function (query) {
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${query}`);
     if (data.length === 0) throw new Error();
     // 2. Get 12 objects
-    for (let index = 0; index < 7; index++) {
+    for (let index = 0; index < 10; index++) {
       // Get objectId
       const objectId = data.objectIDs[index];
       // Get object by id
