@@ -7,11 +7,13 @@ class MainGalleryView extends galleryView {
   _parentEl = document.querySelector('.gallery--1');
   _errorMessage = 'Something went wrong! Try again later.';
 
+  ///////////////////////////////////////////////////////////////////
   // On load
   addHandlerRender(handler) {
     window.addEventListener('load', handler);
   }
 
+  ///////////////////////////////////////////////////////////////////
   // Add handler to refresh gallery button
   addHandlerRefreshClick(handler) {
     this._parentEl.addEventListener('click', function (e) {
@@ -23,7 +25,8 @@ class MainGalleryView extends galleryView {
     });
   }
 
-  // Add handler to change options cell button
+  ///////////////////////////////////////////////////////////////////
+  // Add handler to change filter cell button (pencil btn)
   addHandlerChangeClick(handler) {
     this._parentEl.addEventListener('click', function (e) {
       const btn = e.target.closest('.gallery__item-display-options-btn');
@@ -36,6 +39,40 @@ class MainGalleryView extends galleryView {
     });
   }
 
+  ///////////////////////////////////////////////////////////////////
+  // Add handler to submit button on change cell's filter form
+  addHandlerFormSubmit(handler) {
+    this._parentEl.addEventListener('submit', function (e) {
+      // Prevent default form behavior
+      e.preventDefault();
+
+      // Get form el
+      const formEl = document.querySelector('.form');
+
+      if (!formEl) return;
+
+      // Get selected options
+      const allInputsRows = formEl.querySelectorAll('.form__row');
+      const visibleInputs = [];
+      allInputsRows.forEach(element => {
+        if (!element.classList.contains('form__row--hidden')) {
+          const visibleInput = element.querySelector('.form__input');
+          visibleInputs.push(visibleInput);
+        }
+      });
+
+      const [filterFamily, filter] = [
+        visibleInputs[0].value,
+        visibleInputs[1].value,
+      ];
+
+      const cellNum = +formEl.dataset.cell;
+
+      handler(cellNum, filterFamily, filter);
+    });
+  }
+
+  ///////////////////////////////////////////////////////////////////
   // Position Refresh Button according to screen width
   positionButtons() {
     const refreshBtn = document.querySelector('.gallery__refresh-btn');
@@ -65,6 +102,8 @@ class MainGalleryView extends galleryView {
     }
   }
 
+  ///////////////////////////////////////////////////////////////////
+  // Generate gallery markup
   _generateMarkup() {
     return `
     <button class="btn-icon btn-icon--refresh gallery__refresh-btn">
@@ -76,16 +115,22 @@ class MainGalleryView extends galleryView {
     `;
   }
 
+  ///////////////////////////////////////////////////////////////////
+  // Render Options layer
   renderOptionsLayer() {
-    const allCells = document.querySelectorAll('.gallery__item');
+    // 1. Get all cells
+    const allCells = this._parentEl.querySelectorAll('.gallery__item');
 
+    // 2. Create and add markup to each
     allCells.forEach((cell, i) => {
       const markup = this._genereteOptionsLayoutMarkup(cell, i);
+      // Disactivate hover effect on each cell
       cell.classList.add('disactivated');
       cell.insertAdjacentHTML('afterbegin', markup);
     });
   }
 
+  // Option layer markup
   _genereteOptionsLayoutMarkup(cell, i) {
     return `
     <div class="gallery__item-display-options">
@@ -103,19 +148,25 @@ class MainGalleryView extends galleryView {
     `;
   }
 
-  renderOptionsChangeLayer(cellNum, cell) {
+  ///////////////////////////////////////////////////////////////////
+  // Render Change Filter layer for selected cell
+  renderChangeCellFilterLayer(cellNum, cell) {
     const cellEl = document.querySelector(`.gallery__item--${cellNum + 1}`);
     const pencilEl = cellEl.querySelector('.gallery__item-display-options-btn');
     const optionsEl = cellEl.querySelector('.gallery__item-display-options');
+
+    // Hide pencil
     pencilEl.style.display = 'none';
 
-    const markup = this._genereteOptionsChangeLayoutMarkup(cellNum, cell);
-
+    // Create change filter markup
+    const markup = this._generateChangeCellFillterLayoutMarkup(cellNum, cell);
     optionsEl.insertAdjacentHTML('afterbegin', markup);
-    this.wireUpInputFields();
+    // Activate input fields toggling
+    this._wireUpInputFields();
   }
 
-  _genereteOptionsChangeLayoutMarkup(cellNum, cell) {
+  // Create layout
+  _generateChangeCellFillterLayoutMarkup(cellNum, cell) {
     return `
       <form class="form" data-cell=${cellNum}>
         <div class="form__row">
@@ -123,10 +174,7 @@ class MainGalleryView extends galleryView {
           <select class="form__input form__input--search-by">
             <option value="Department" ${
               cell.filterFamily === 'Department' ? 'selected' : ''
-            }>Department</option>
-            <option value="Date" ${
-              cell.filterFamily === 'Date' ? 'selected' : ''
-            }>Date/Era</option>
+            }>Department</option>>
             <option value="Geo" ${
               cell.filterFamily === 'Geo' ? 'selected' : ''
             }>Geographic Location</option>
@@ -158,23 +206,6 @@ class MainGalleryView extends galleryView {
             <option value="Photographs" ${
               cell.filter === 'Photographs' ? 'selected' : ''
             }>Photographs</option>
-          </select>
-        </div>
-        <div class="form__row ${
-          cell.filterFamily === 'Date' ? '' : 'form__row--hidden'
-        }">
-          <label class="form__label">Date/Era</label>
-          <select class="form__input form__input--date">
-            <option value="AD1800_1900">a.d. 1800-1900</option>
-            <option value="AD1600_1800">a.d. 1600-1800</option>
-            <option value="AD1400_1600">a.d. 1400-1600</option>
-            <option value="1000BC-AD1">1000 b.c.-a.d.1</option>
-            <option value="AD1000_1400">a.d. 1000-1400</option>
-            <option value="2000_1000BC">2000-1000 b.c.</option>
-            <option value="AD500_100">a.d. 500-100</option>
-            <option value="AD1_500">a.d. 1-500</option>
-            <option value="8000_2000BC">8000-2000 b.c.</option>
-            <option value="AD1900_PRESENT">a.d. 1900-present</option>
           </select>
         </div>
         <div class="form__row ${
@@ -225,61 +256,27 @@ class MainGalleryView extends galleryView {
     `;
   }
 
-  wireUpInputFields() {
-    // const formEl = document.querySelector('.form');
+  // Activate toggling on form fiends
+  _wireUpInputFields() {
+    // Get input el
     const inputSearchBy = document.querySelector('.form__input--search-by');
 
-    // formEl.addEventListener('submit', this._saveChanges);
+    // Add event listener which calls for toggle form fiends function
     inputSearchBy.addEventListener('change', this._toggleFormFields);
   }
 
+  // Toggle form fields function
   _toggleFormFields() {
     const departmentEl = document.querySelector('.form__input--department');
-    const dateEl = document.querySelector('.form__input--date');
     const geoEl = document.querySelector('.form__input--geo');
 
     if (this.value === 'Department') {
       departmentEl.closest('.form__row').classList.remove('form__row--hidden');
-      dateEl.closest('.form__row').classList.add('form__row--hidden');
-      geoEl.closest('.form__row').classList.add('form__row--hidden');
-    } else if (this.value === 'Date') {
-      departmentEl.closest('.form__row').classList.add('form__row--hidden');
-      dateEl.closest('.form__row').classList.remove('form__row--hidden');
       geoEl.closest('.form__row').classList.add('form__row--hidden');
     } else if (this.value === 'Geo') {
       departmentEl.closest('.form__row').classList.add('form__row--hidden');
-      dateEl.closest('.form__row').classList.add('form__row--hidden');
       geoEl.closest('.form__row').classList.remove('form__row--hidden');
     }
-  }
-
-  addHandlerFormSubmit(handler) {
-    this._parentEl.addEventListener('submit', function (e) {
-      // Prevent default form behavior
-      e.preventDefault();
-      const formEl = document.querySelector('.form');
-
-      if (!formEl) return;
-
-      // Get variables
-      const allInputsRows = formEl.querySelectorAll('.form__row');
-      const visibleInputs = [];
-      allInputsRows.forEach(element => {
-        if (!element.classList.contains('form__row--hidden')) {
-          const visibleInput = element.querySelector('.form__input');
-          visibleInputs.push(visibleInput);
-        }
-      });
-
-      const [filterFamily, filter] = [
-        visibleInputs[0].value,
-        visibleInputs[1].value,
-      ];
-
-      const cellNum = +formEl.dataset.cell;
-
-      handler(cellNum, filterFamily, filter);
-    });
   }
 
   renderHideCellOptions(cellNum) {

@@ -11,10 +11,13 @@ class DetailsView {
   #overlay = document.querySelector('.overlay');
   #btnClose = document.querySelector('.details-close');
 
+  ///////////////////////////////////////////////////////////////////
+  // Constructor
   constructor() {
     this.#addHandlerHideWindow();
   }
 
+  ///////////////////////////////////////////////////////////////////
   // Render, pass data and origin (true if object is in search gallery)
   render(data, origin) {
     this.#data = data;
@@ -27,6 +30,8 @@ class DetailsView {
     this.#window.classList.toggle('hidden');
   }
 
+  ///////////////////////////////////////////////////////////////////
+  // Update cell (for like btn)
   update(data) {
     this.#data = data;
     const newMarkup = this.#generateMarkup();
@@ -46,7 +51,8 @@ class DetailsView {
       }
     });
   }
-
+  ///////////////////////////////////////////////////////////////////
+  // Add expanding images effect to the gallery
   animateImgs() {
     // Details Modal: Expanding Images Effect
     const images = document.querySelectorAll('.details__container-image');
@@ -65,8 +71,17 @@ class DetailsView {
     }
   }
 
+  ///////////////////////////////////////////////////////////////////
+  // Clear parent element
   #clear() {
     this.#parentEl.innerHTML = '';
+  }
+
+  ///////////////////////////////////////////////////////////////////
+  // Open/ close modal functionality
+  #addHandlerHideWindow() {
+    this.#btnClose.addEventListener('click', this.toggleWindow.bind(this));
+    this.#overlay.addEventListener('click', this.toggleWindow.bind(this));
   }
 
   toggleWindow() {
@@ -74,11 +89,7 @@ class DetailsView {
     this.#window.classList.toggle('hidden');
   }
 
-  #addHandlerHideWindow() {
-    this.#btnClose.addEventListener('click', this.toggleWindow.bind(this));
-    this.#overlay.addEventListener('click', this.toggleWindow.bind(this));
-  }
-
+  ///////////////////////////////////////////////////////////////////
   // Add handler to like button
   addHandlerAddFavorite(handler) {
     this.#parentEl.addEventListener('click', function (e) {
@@ -94,18 +105,8 @@ class DetailsView {
     });
   }
 
-  renderSpinner = function () {
-    const markup = `
-    <div class="spinner">
-      <svg>
-        <use href="${icons}#icon-refresh"></use>
-      </svg>
-    </div>
-  `;
-    this.#parentEl.innerHTML = '';
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
-  };
-
+  ///////////////////////////////////////////////////////////////////
+  // Generate markup
   #generateMarkup() {
     return `
       <div class="details__container-images">
@@ -193,6 +194,7 @@ class DetailsView {
     `;
   }
 
+  // Images gallery markup
   #generateImagesMarkup(img) {
     return `
       <div class="details__container-image">

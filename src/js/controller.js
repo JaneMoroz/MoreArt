@@ -39,7 +39,7 @@ const controlUpdateGallery = async function () {
     // 3. Render gallery
     mainGalleryView.render(model.state.currentDisplayCollection);
     // 4. Set optionMode to false in case it was activated before refresh btn was clicked
-    model.state.inOptionsMode = false;
+    model.state.inChangeFilterMode = false;
   } catch (err) {
     mainGalleryView.renderError();
   }
@@ -202,36 +202,56 @@ const controlFavorites = function () {
 ///////////////////////////////////////////////////////////////////
 // Load options layer
 const controlOptions = function () {
-  if (model.state.inOptionsMode === false) {
+  if (model.state.inChangeFilterMode === false) {
+    // 1. Render layer
     mainGalleryView.renderOptionsLayer();
-    model.state.inOptionsMode = true;
+    // Set inChangeFilterMode to true
+    model.state.inChangeFilterMode = true;
   } else {
     mainGalleryView.render(model.state.currentDisplayCollection);
-    model.state.inOptionsMode = false;
+    model.state.inChangeFilterMode = false;
   }
 };
 
-// Load options change layer
-const controlChangeOptions = function (cellNum) {
+///////////////////////////////////////////////////////////////////
+// Load change filter layer
+const controlChangeCellFilter = function (cellNum) {
   // Get cell information
   const cells = Object.values(model.state.gallery);
   const cell = cells[cellNum];
 
-  mainGalleryView.renderOptionsChangeLayer(cellNum, cell);
+  // Render Change Filter Layer for the provided cell
+  mainGalleryView.renderChangeCellFilterLayer(cellNum, cell);
 
+  // Hide option layer(pencil btn) for other cells
   mainGalleryView.renderHideCellOptions(cellNum);
 };
 
+///////////////////////////////////////////////////////////////////
+// Update cell filter
 const controlUpdateCellFilter = async function (cellNum, filterFamily, filter) {
   try {
+    // 1. Get cell
     const cell = model.state.gallery[`cell${cellNum + 1}`];
+
+    // 2. Change filterFamily and filter
     cell.filterFamily = filterFamily;
     cell.filter = filter;
 
+    // 3. Render spinner
     mainGalleryView.renderSpinner();
+
+    // 4. Load data
     await model.loadGallery();
+
+    // 5. Render gallery
     mainGalleryView.render(model.state.currentDisplayCollection);
-    model.state.inOptionsMode = false;
+
+    // 6. Save updated filter to the localstorage
+    model.updateFilter();
+
+    // 6. Turn off inChangeFilterMode
+    model.state.inChangeFilterMode = false;
   } catch (err) {
     mainGalleryView.renderError();
   }
@@ -245,7 +265,7 @@ const init = function () {
   mainGalleryView.addHandlerRefreshClick(controlUpdateGallery);
   mainGalleryView.addHandlerDetailsClick(controlDetails);
   mainGalleryView.addHandlerAddFavorite(controlAddFavorite);
-  mainGalleryView.addHandlerChangeClick(controlChangeOptions);
+  mainGalleryView.addHandlerChangeClick(controlChangeCellFilter);
   mainGalleryView.addHandlerFormSubmit(controlUpdateCellFilter);
 
   searchResultsGalleryView.addHandlerClick(controlPagination);

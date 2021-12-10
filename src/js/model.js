@@ -58,17 +58,27 @@ export const state = {
   },
   favorites: [],
   toRemoveFromFavorites: {},
-  inOptionsMode: false,
+  inChangeFilterMode: false,
 };
 
 ///////////////////////////////////////////////////////////////////
 // Create object with needed property
 const createCellObject = function (object) {
+  // Limit addtional images to max of 3 images
+  let updatedAdditionalImages = [];
+  if (object.additionalImages.length >= 3) {
+    for (let i = 0; i < 3; i++) {
+      const image = object.additionalImages[i];
+      updatedAdditionalImages.push(image);
+    }
+  } else {
+    updatedAdditionalImages = object.additionalImages;
+  }
   return (cellObject = {
     id: object.objectID,
     primaryImage: object.primaryImage,
     primaryImageSmall: object.primaryImageSmall,
-    additionalImages: object.additionalImages,
+    additionalImages: updatedAdditionalImages,
     title: object.title,
     artistName: object.artistDisplayName,
     artistGender: object.artistGender,
@@ -92,7 +102,7 @@ export const loadObejectById = async function (id) {
 };
 
 ///////////////////////////////////////////////////////////////////
-// Load each cell data
+// Load each cell data according to its filter
 const loadCell = async function (cell) {
   try {
     // 0. Empty cell
@@ -115,8 +125,9 @@ const loadCell = async function (cell) {
       // Save object to cell collection array
       cell.collection.push(object);
     }
-    // 3. Set cell current display object
+    // 3. Set cell's current display object
     cell.currentDisplay = cell.collection[+cell.currentDisplayId];
+    // 4. Add object to current display collection array
     state.currentDisplayCollection.push(
       cell.collection[+cell.currentDisplayId]
     );
@@ -150,13 +161,14 @@ const updateCell = async function (cell) {
 // Load gallery by loading each cell
 export const loadGallery = async function () {
   try {
+    // 1. Clear current display collection array(needed for when the cell filter is changed)
+    state.currentDisplayCollection = [];
+
     // const cells = Object.values(state.gallery);
 
     // for (const cell of cells) {
     //   await loadCell(cell);
     // }
-
-    state.currentDisplayCollection = [];
 
     await loadCell(state.gallery.cell1);
     await loadCell(state.gallery.cell2);
@@ -222,12 +234,16 @@ export const loadSearchResults = async function (query) {
 // (display per one page = 6)
 // If page = 1, returns obg1-obj6, if page = 2 returns obj7-obj12
 export const getSearchResultsPage = function (page = state.search.page) {
+  // 1. Empty Results Display Collection array
   state.search.resultsDisplayCollection = [];
+  // 2. Set page in the state to the provided value
   state.search.page = page;
 
+  // 3. Calculate start and end indexes to be displayed according to the page
   const start = (page - 1) * state.search.resultsPerPage; // 0;
   const end = page * state.search.resultsPerPage; // 6;
 
+  // 4. Update resulrs display collection according to these indexes
   state.search.resultsDisplayCollection = state.search.resultsCollection.slice(
     start,
     end
@@ -264,10 +280,38 @@ export const deleteFavorite = function (object) {
 };
 
 ///////////////////////////////////////////////////////////////////
-// Get favorites from the local storage
+// Update cell's filter family and filter itself
+export const updateFilter = function () {
+  // 2.Get values needed to be saved in the local storage
+  const cellsFilters = [];
+  const cells = Object.values(state.gallery);
+  cells.forEach(cell => {
+    const newCell = {
+      filterFamily: cell.filterFamily,
+      filter: cell.filter,
+    };
+    cellsFilters.push(newCell);
+  });
+
+  // 3. Save cell's filter family and filter values to the local storage
+  localStorage.setItem('cells-filters', JSON.stringify(cellsFilters));
+};
+
+///////////////////////////////////////////////////////////////////
+// Get favorites and cellsFilters from the local storage
 const init = function () {
-  const storage = localStorage.getItem('favorites');
-  if (storage) state.favorites = JSON.parse(storage);
+  const favorites = localStorage.getItem('favorites');
+  if (favorites) state.favorites = JSON.parse(favorites);
+
+  const filters = localStorage.getItem('cells-filters');
+  if (filters) {
+    const cells = Object.values(state.gallery);
+    const cellsFilters = JSON.parse(filters);
+    cells.forEach((cell, i) => {
+      cell.filterFamily = cellsFilters[i].filterFamily;
+      cell.filter = cellsFilters[i].filter;
+    });
+  }
 };
 
 init();
