@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/style.css" />
+    <script type="module" defer src="src/js/style.js"></script>
     <script type="module" defer src="src/js/controller.js"></script>
     <!-- <script defer src="src/js/style.js"></script> -->
     <title>MoreArt</title>
@@ -83,21 +84,22 @@
           </ul>
         </nav>
       </header>
-      <div class="gallery gallery--1">
-        <!-- <button class="btn-icon btn-icon--refresh gallery__refresh-btn">
+      <body>
+        <div class="gallery gallery--1">
+          <!-- <button class="btn-icon btn-icon--refresh gallery__refresh-btn">
           <svg>
             <use href="src/img/icons.svg#icon-refresh"></use>
           </svg>
         </button> -->
-        <!-- <figure class="gallery__item gallery__item--1"> -->
-        <!-- Loading Spinner -->
-        <!-- <div class="spinner">
+          <!-- <figure class="gallery__item gallery__item--1"> -->
+          <!-- Loading Spinner -->
+          <!-- <div class="spinner">
           <svg>
             <use href="src/img/icons.svg#icon-refresh"></use>
           </svg>
         </div> -->
-        <!-- Error Message -->
-        <!-- <div class="error">
+          <!-- Error Message -->
+          <!-- <div class="error">
             <div>
               <svg>
                 <use href="src/img/icons.svg#icon-caution"></use>
@@ -105,10 +107,10 @@
             </div>
             <p>Something went wrong. Please try again!</p>
           </div> -->
-        <!-- A User Can Choose Display Options -->
-        <!--<div class="gallery__item-display-options"> -->
-        <!-- Button To Activate a Form Which Corresponds To a Specific Grid Cell, Disappears After Activation -->
-        <!-- <button
+          <!-- A User Can Choose Display Options -->
+          <!--<div class="gallery__item-display-options"> -->
+          <!-- Button To Activate a Form Which Corresponds To a Specific Grid Cell, Disappears After Activation -->
+          <!-- <button
               class="
                 btn-icon btn-icon--pencil
                 gallery__item-display-options-btn
@@ -118,10 +120,10 @@
                 <use href="src/img/icons.svg#icon-pencil"></use>
               </svg>
             </button> -->
-        <!-- Form -->
-        <!-- <form class="form"> -->
-        <!-- First Choose Filter -->
-        <!-- <div class="form__row">
+          <!-- Form -->
+          <!-- <form class="form"> -->
+          <!-- First Choose Filter -->
+          <!-- <div class="form__row">
                 <label class="form__label">Search By</label>
                 <select class="form__input form__input--type">
                   <option value="department">Department</option>
@@ -129,8 +131,8 @@
                   <option value="geo">Geographic Location</option>
                 </select>
               </div> -->
-        <!-- If 'Department' was chosen -->
-        <!-- <div class="form__row">
+          <!-- If 'Department' was chosen -->
+          <!-- <div class="form__row">
                 <label class="form__label">Department</label>
                 <select class="form__input form__input--type">
                   <option value="greekRomanArt">Greek And Roman Art</option>
@@ -142,8 +144,8 @@
                   <option value="photo">Photographs</option>
                 </select>
               </div> -->
-        <!-- If 'Date/Era' was chosen -->
-        <!-- <div class="form__row">
+          <!-- If 'Date/Era' was chosen -->
+          <!-- <div class="form__row">
                 <label class="form__label">Date/Era</label>
                 <select class="form__input form__input--type">
                   <option value="AD1800_1900">a.d. 1800-1900</option>
@@ -158,8 +160,8 @@
                   <option value="AD1900_PRESENT">a.d. 1900-present</option>
                 </select>
               </div> -->
-        <!-- If 'Geographic Location' was chosen -->
-        <!-- <div class="form__row">
+          <!-- If 'Geographic Location' was chosen -->
+          <!-- <div class="form__row">
                 <label class="form__label">Geographic Location</label>
                 <select class="form__input form__input--type">
                   <option value="africa">Africa</option>
@@ -176,7 +178,7 @@
                   <option value="usa">United States</option>
                 </select>
               </div> -->
-        <!-- <button class="btn form__btn">Save</button>
+          <!-- <button class="btn form__btn">Save</button>
             </form> 
           </div>
           <button class="btn-icon btn-icon--heart-outline gallery__item-like">
@@ -194,8 +196,8 @@
             <p class="gallery__item-caption-artist">by Jean-Baptiste Isabey</p>
             <button class="btn gallery__item-caption-btn">Details</button>
           </figcaption>  -->
-        <!-- </figure> -->
-        <!-- <figure class="gallery__item gallery__item--2">
+          <!-- </figure> -->
+          <!-- <figure class="gallery__item gallery__item--2">
           <button class="btn-icon btn-icon--heart-outline gallery__item-like">
             <svg>
               <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -280,21 +282,21 @@
             <button class="btn gallery__item-caption-btn">Details</button>
           </figcaption>
         </figure> -->
-      </div>
-      <!-- Search Results Section -->
-      <div class="search-results">
-        <!-- Loading Spinner -->
-        <!-- <div class="spinner">
+        </div>
+        <!-- Search Results Section -->
+        <div class="search-results" id="search-results">
+          <!-- Loading Spinner -->
+          <!-- <div class="spinner">
           <svg>
             <use href="src/img/icons.svg#icon-refresh"></use>
           </svg>
         </div> -->
-        <!-- <p class="search-results__text">
+          <!-- <p class="search-results__text">
           Search Results for <span>“Thomas Lawrence”</span>
         </p> -->
-        <!-- Search Result Gallery -->
-        <!-- <div class="gallery gallery--2 search-results__gallery"> -->
-        <!-- <button
+          <!-- Search Result Gallery -->
+          <!-- <div class="gallery gallery--2 search-results__gallery"> -->
+          <!-- <button
             class="
               btn
               search-results__gallery-btn search-results__gallery-btn--previous
@@ -316,7 +318,7 @@
               <use href="src/img/icons.svg#icon-arrow-long-right"></use>
             </svg>
           </button> -->
-        <!-- <figure class="gallery__item gallery__item--1">
+          <!-- <figure class="gallery__item gallery__item--1">
             <button class="btn-icon btn-icon--heart-outline gallery__item-like">
               <svg>
                 <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -335,7 +337,7 @@
               <button class="btn gallery__item-caption-btn">Details</button>
             </figcaption>
           </figure> -->
-        <!-- <figure class="gallery__item gallery__item--2">
+          <!-- <figure class="gallery__item gallery__item--2">
             <button class="btn-icon btn-icon--heart-outline gallery__item-like">
               <svg>
                 <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -354,7 +356,7 @@
               <button class="btn gallery__item-caption-btn">Details</button>
             </figcaption>
           </figure> -->
-        <!-- <figure class="gallery__item gallery__item--3">
+          <!-- <figure class="gallery__item gallery__item--3">
             <button class="btn-icon btn-icon--heart-outline gallery__item-like">
               <svg>
                 <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -373,7 +375,7 @@
               <button class="btn gallery__item-caption-btn">Details</button>
             </figcaption>
           </figure> -->
-        <!-- <figure class="gallery__item gallery__item--4">
+          <!-- <figure class="gallery__item gallery__item--4">
             <button class="btn-icon btn-icon--heart-outline gallery__item-like">
               <svg>
                 <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -392,7 +394,7 @@
               <button class="btn gallery__item-caption-btn">Details</button>
             </figcaption>
           </figure> -->
-        <!-- <figure class="gallery__item gallery__item--5">
+          <!-- <figure class="gallery__item gallery__item--5">
             <button class="btn-icon btn-icon--heart-outline gallery__item-like">
               <svg>
                 <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -411,7 +413,7 @@
               <button class="btn gallery__item-caption-btn">Details</button>
             </figcaption>
           </figure> -->
-        <!-- <figure class="gallery__item gallery__item--6">
+          <!-- <figure class="gallery__item gallery__item--6">
             <button class="btn-icon btn-icon--heart-outline gallery__item-like">
               <svg>
                 <use href="src/img/icons.svg#icon-heart-outlined"></use>
@@ -430,8 +432,9 @@
               <button class="btn gallery__item-caption-btn">Details</button>
             </figcaption>
           </figure> -->
-        <!-- </div> -->
-      </div>
+          <!-- </div> -->
+        </div>
+      </body>
       <!-- Footer -->
       <footer class="footer">
         <p class="footer__text">

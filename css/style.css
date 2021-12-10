@@ -22,6 +22,7 @@ body {
   min-height: calc(100vh - 2 * 4vw); }
 
 .container {
+  position: relative;
   max-width: 120rem;
   min-height: 100vh;
   margin: 0 auto;
@@ -183,6 +184,13 @@ body {
     height: 6.7rem;
     display: block; }
 
+.header.sticky {
+  position: fixed;
+  width: 100%;
+  max-width: 120rem;
+  z-index: 5000;
+  background-color: rgba(255, 249, 249, 0.85); }
+
 .search {
   border-radius: 1.3rem;
   background-color: #fff1f1;
@@ -272,6 +280,9 @@ body {
   .nav__btn--add-favorite:hover + .favorites {
     visibility: visible;
     opacity: 1; }
+
+.sticky .favorites {
+  background-color: rgba(255, 249, 249, 0.85); }
 
 .gallery {
   position: relative;

@@ -17,6 +17,12 @@ class SearchView {
       handler();
     });
   }
+
+  scrollToSerachGallery() {
+    document
+      .querySelector('.search-results')
+      .scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
 }
 
 export default new SearchView();

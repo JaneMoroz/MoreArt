@@ -64,6 +64,9 @@ const controlSearchResults = async function () {
       model.getSearchResultsPage(),
       model.state.search
     );
+
+    // 5. Scroll to search results gallery
+    searchView.scrollToSerachGallery();
   } catch (err) {
     searchResultsGalleryView.renderError();
   }
