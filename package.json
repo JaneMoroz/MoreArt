@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An app for anyone who wants to get familiar with the world of art.",
   "browserslist": "last 10 versions",
+  "default": "index.html",
   "scripts": {
     "watch:sass": "node-sass src/sass/main.scss css/style.css -w",
     "devserver": "live-server",
@@ -12,7 +13,7 @@
     "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
     "build:css": "npm-run-all compile:sass prefix:css compress:css",
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "repository": {
     "type": "git",
