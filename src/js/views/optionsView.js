@@ -1,8 +1,8 @@
 class OptionsView {
-  #parentEl = document.querySelector('.nav__btn--options');
+  _parentEl = document.querySelector('.nav__btn--options');
 
   addHandlerOptions(handler) {
-    this.#parentEl.addEventListener('click', function (e) {
+    this._parentEl.addEventListener('click', function (e) {
       handler();
     });
   }
