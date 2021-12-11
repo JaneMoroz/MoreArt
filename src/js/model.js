@@ -31,7 +31,7 @@ export const state = {
       currentDisplayId: 0,
       currentDisplay: {},
       filterFamily: 'Department',
-      filter: 'Medieval Art',
+      filter: 'Photographs',
     },
     cell5: {
       collection: [],
@@ -74,7 +74,7 @@ const createCellObject = function (object) {
   } else {
     updatedAdditionalImages = object.additionalImages;
   }
-  return (cellObject = {
+  const cellObject = {
     id: object.objectID,
     primaryImage: object.primaryImage,
     primaryImageSmall: object.primaryImageSmall,
@@ -87,7 +87,8 @@ const createCellObject = function (object) {
     department: object.department,
     culture: object.culture,
     repository: object.repository,
-  });
+  };
+  return cellObject;
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -210,7 +211,7 @@ export const loadSearchResults = async function (query) {
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${query}`);
     if (data.length === 0) throw new Error();
     // 2. Get 12 objects
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 18; index++) {
       // Get objectId
       const objectId = data.objectIDs[index];
       // Get object by id

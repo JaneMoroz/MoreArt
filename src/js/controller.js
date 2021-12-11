@@ -49,6 +49,9 @@ const controlUpdateGallery = async function () {
 // Load and show search results
 const controlSearchResults = async function () {
   try {
+    // 0. Scroll down
+    searchView.scrollToSerachGallery();
+
     // 1. Render spinner
     searchResultsGalleryView.renderSpinner();
 

@@ -486,6 +486,9 @@ body {
   opacity: 1;
   z-index: 100; }
 
+.gallery--1.sticky {
+  margin-top: 9rem; }
+
 .form {
   color: #3f3f3f;
   padding: 1.5rem 2.75rem;
@@ -722,7 +725,9 @@ body {
   .footer__text {
     display: block;
     text-align: center;
-    font-size: 3rem; }
+    font-size: 3rem;
+    max-width: 70rem; }
     @media only screen and (max-width: 48em) {
       .footer__text {
-        padding: 0 1.2rem; } }
+        padding: 0 1.2rem;
+        max-width: 40rem; } }

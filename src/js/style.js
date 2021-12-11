@@ -7,10 +7,12 @@ const obs = new IntersectionObserver(
 
     if (ent.isIntersecting === false) {
       headerEl.classList.add('sticky');
+      gallery1El.classList.add('sticky');
     }
 
     if (ent.isIntersecting === true) {
       headerEl.classList.remove('sticky');
+      gallery1El.classList.remove('sticky');
     }
   },
   {
