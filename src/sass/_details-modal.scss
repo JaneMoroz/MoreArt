@@ -23,7 +23,7 @@
   }
 
   @media only screen and (max-width: $bp-smallest) {
-    height: 100vh;
+    height: 85vh;
   }
 
   &-close {
@@ -59,6 +59,10 @@
       flex: 0.5;
       cursor: pointer;
       transition: flex 0.7s ease-in;
+
+      @media only screen and (max-width: $bp-smallest) {
+        height: 45rem;
+      }
 
       &--active {
         flex: 5;

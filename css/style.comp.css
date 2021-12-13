@@ -56,7 +56,7 @@ body {
   .btn-icon--options svg {
     width: 4.2rem;
     height: 3.2rem; }
-  .btn-icon--met {
+  .btn-icon--met img {
     width: 13rem;
     height: 8.7rem; }
   .btn-icon--heart-outline {
@@ -156,6 +156,9 @@ body {
   min-height: 30rem;
   grid-column: 1 / -1;
   grid-row: 1 / -1; }
+  @media only screen and (max-width: 64em) {
+    .spinner {
+      grid-row: 1; } }
   .spinner svg {
     height: 6rem;
     width: 6rem;
@@ -166,7 +169,7 @@ body {
   0% {
     transform: rotate(0); }
   100% {
-    transform: rotate(360deg); } }
+    transform: rotate(-360deg); } }
 
 .header {
   display: flex;
@@ -434,6 +437,11 @@ body {
       @media only screen and (max-width: 64em) {
         .gallery__item-caption {
           font-size: 2.4rem; } }
+      @media only screen and (max-width: 26.75em) {
+        .gallery__item-caption {
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 1rem; } }
       .gallery__item-caption-title {
         font-size: 3.2rem; }
         @media only screen and (hover: none) {
@@ -454,6 +462,9 @@ body {
         @media only screen and (max-width: 64em) {
           .gallery__item-caption-artist {
             font-size: 1.8rem; } }
+        @media only screen and (max-width: 26.75em) {
+          .gallery__item-caption-artist {
+            display: none; } }
       @media only screen and (hover: none) {
         .gallery__item-caption-btn {
           grid-column: 2;
@@ -596,7 +607,7 @@ body {
       border-radius: 0; } }
   @media only screen and (max-width: 26.75em) {
     .details {
-      height: 100vh; } }
+      height: 85vh; } }
   .details-close {
     position: absolute;
     top: 1.3rem;
@@ -623,6 +634,9 @@ body {
       flex: 0.5;
       cursor: pointer;
       transition: flex 0.7s ease-in; }
+      @media only screen and (max-width: 26.75em) {
+        .details__container-image {
+          height: 45rem; } }
       .details__container-image--active {
         flex: 5; }
       .details__container-image img {

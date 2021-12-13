@@ -46,8 +46,10 @@
   }
 
   &--met {
-    width: 13rem;
-    height: 8.7rem;
+    img {
+      width: 13rem;
+      height: 8.7rem;
+    }
   }
 
   &--heart-outline {
@@ -185,6 +187,10 @@
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 
+  @media only screen and (max-width: $bp-medium) {
+    grid-row: 1;
+  }
+
   svg {
     height: 6rem;
     width: 6rem;
@@ -199,6 +205,6 @@
   }
 
   100% {
-    transform: rotate(360deg);
+    transform: rotate(-360deg);
   }
 }

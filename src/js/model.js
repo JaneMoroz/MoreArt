@@ -93,7 +93,7 @@ const createCellObject = function (object) {
 
 ///////////////////////////////////////////////////////////////////
 // Load object by id
-export const loadObejectById = async function (id) {
+export const loadObjectById = async function (id) {
   try {
     const data = await AJAX(`${API_URL}objects/${id}`);
     return createCellObject(data);
@@ -119,7 +119,7 @@ const loadCell = async function (cell) {
       // Get objectId using the random index
       const objectId = data.objectIDs[randomNum];
       // Get object by id
-      const object = await loadObejectById(objectId);
+      const object = await loadObjectById(objectId);
       // Check if the object is in favorites
       const isFavorite = state.favorites.some(el => el.id === object.id);
       if (isFavorite) object.favorite = true;
@@ -210,19 +210,16 @@ export const loadSearchResults = async function (query) {
     // 2. Get ids
     const data = await AJAX(`${API_URL}search?hasImages=true&q=${query}`);
     if (data.length === 0) throw new Error();
-    // 2. Get 12 objects
-    for (let index = 0; index < 18; index++) {
-      // Get objectId
-      const objectId = data.objectIDs[index];
-      // Get object by id
-      const object = await loadObejectById(objectId);
-      // Check if the object is in favorites
-      const isFavorite = state.favorites.some(el => el.id === object.id);
-      if (isFavorite) object.favorite = true;
-      // Save object to search collection array
-      state.search.resultsCollection.push(object);
-      if (state.search.resultsDisplayCollection.length < 7) {
-        state.search.resultsDisplayCollection.push(object);
+    // 2. Get needed number of objects objects
+    const numberOfObjects = 18;
+    // 3. Check if number of results is less or more than needed
+    if (data.total < numberOfObjects) {
+      for (let index = 0; index < data.total; index++) {
+        await getObjects(data, index);
+      }
+    } else {
+      for (let index = 0; index < numberOfObjects; index++) {
+        await getObjects(data, index);
       }
     }
   } catch (error) {
@@ -230,6 +227,20 @@ export const loadSearchResults = async function (query) {
   }
 };
 
+// Get object and add in to the results display collection and the search display result collection
+const getObjects = async function (data, index) {
+  const objectId = data.objectIDs[index];
+  // Get object by id
+  const object = await loadObjectById(objectId);
+  // Check if the object is in favorites
+  const isFavorite = state.favorites.some(el => el.id === object.id);
+  if (isFavorite) object.favorite = true;
+  // Save object to search collection array
+  state.search.resultsCollection.push(object);
+  if (state.search.resultsDisplayCollection.length < 7) {
+    state.search.resultsDisplayCollection.push(object);
+  }
+};
 ///////////////////////////////////////////////////////////////////
 // Function that returns an array of 6 results according to the page
 // (display per one page = 6)

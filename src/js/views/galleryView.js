@@ -132,8 +132,16 @@ export default class GalleryView {
           class="gallery__item-img"
         />
         <figcaption class="gallery__item-caption">
-          <p class="gallery__item-caption-title">${cell.title}</p>
-          <p class="gallery__item-caption-artist">${cell.artistName}</p>
+          <p class="gallery__item-caption-title">${
+            cell.title.length < 40
+              ? cell.title
+              : cell.title.slice(0, 40) + '...'
+          }</p>
+          <p class="gallery__item-caption-artist">${
+            cell.artistName.length < 20
+              ? cell.artistName
+              : cell.artistName.slice(0, 20) + '...'
+          }</p>
           <button data-id=${cell.id} data-origin=${
       Object.keys(this._search).length === 0 ? 'mainGalley' : 'searchGallery'
     } class="btn gallery__item-caption-btn">Details</button>
