@@ -560,7 +560,8 @@ body {
   position: relative; }
   .search-results__gallery-btn {
     position: absolute;
-    z-index: 400; }
+    z-index: 400;
+    max-width: 11rem; }
     .search-results__gallery-btn--previous {
       top: 50%;
       left: 1.6rem;
