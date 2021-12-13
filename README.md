@@ -36,4 +36,4 @@ Builds the app for production to the `build` folder.<br />
 <img src="https://i.ibb.co/grH08XT/Details-Modal.jpg" alt="MoreArt app - Details Modal" />
 
 ### Mobile Version
-<img src="https://i.ibb.co/TKhGyjh/Mobile-Main.jpg" alt="MoreArt app - Mobile Main Page" width="300" />      <img src="https://i.ibb.co/4V7CM6Z/Mobile-Favorites.jpg" alt="MoreArt app - Mobile Main Page Favorites" width="300" />      <img src="https://i.ibb.co/n0dB22m/Mobile-Modal.jpg" alt="MoreArt app - Mobile Details Modal" width="300" />
+<img src="https://i.ibb.co/TKhGyjh/Mobile-Main.jpg" alt="MoreArt app - Mobile Main Page" width="250" /> <img src="https://i.ibb.co/4V7CM6Z/Mobile-Favorites.jpg" alt="MoreArt app - Mobile Main Page Favorites" width="250" /> <img src="https://i.ibb.co/n0dB22m/Mobile-Modal.jpg" alt="MoreArt app - Mobile Details Modal" width="250" />
