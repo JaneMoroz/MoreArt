@@ -170,7 +170,7 @@ class MainGalleryView extends galleryView {
     return `
       <form class="form" data-cell=${cellNum}>
         <div class="form__row">
-          <label class="form__label">Search By</label>
+          <label class="form__label">Display By</label>
           <select class="form__input form__input--search-by">
             <option value="Department" ${
               cell.filterFamily === 'Department' ? 'selected' : ''
