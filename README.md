@@ -2,8 +2,11 @@
 
 An app for anyone who wants to get familiar with the world of art.
 
-## 🚀Technologies used:
+## 🚀 Technologies used:
 <img src="https://i.ibb.co/Sw7tMWz/htmlIcon.png" alt="Html icon" width="100" /><img src="https://i.ibb.co/hWxYX5x/cssIcon.png" alt="Css icon" width="108" /><img src="https://i.ibb.co/ws3Sq9X/jsIcon.png" alt="Javascript icon" width="100" /><img src="https://i.ibb.co/XCjffYH/sassIcon.png" alt="Sass icon" height="85" />
+
+- [x] [The Metropolitan Museum of Art Collection API](https://metmuseum.github.io/)
+- [x] MVC Design Pattern
 
 ## Available Scripts
 
@@ -36,4 +39,4 @@ Builds the app for production to the `build` folder.<br />
 <img src="https://i.ibb.co/grH08XT/Details-Modal.jpg" alt="MoreArt app - Details Modal" />
 
 ### Mobile Version
-<img src="https://i.ibb.co/TKhGyjh/Mobile-Main.jpg" alt="MoreArt app - Mobile Main Page" width="250" /> <img src="https://i.ibb.co/4V7CM6Z/Mobile-Favorites.jpg" alt="MoreArt app - Mobile Main Page Favorites" width="250" /> <img src="https://i.ibb.co/n0dB22m/Mobile-Modal.jpg" alt="MoreArt app - Mobile Details Modal" width="250" />
+<img src="https://i.ibb.co/TKhGyjh/Mobile-Main.jpg" alt="MoreArt app - Mobile Main Page" width="33%" /> <img src="https://i.ibb.co/4V7CM6Z/Mobile-Favorites.jpg" alt="MoreArt app - Mobile Main Page Favorites" width="33%" /> <img src="https://i.ibb.co/n0dB22m/Mobile-Modal.jpg" alt="MoreArt app - Mobile Details Modal" width="33%" />
