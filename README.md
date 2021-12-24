@@ -15,7 +15,7 @@ An app for anyone who wants to get familiar with the world of art.
 - [x] Search by artist, title etc.
 - [x] Click on details and get more information about object
 - [x] Add to favorites and remove from favorites
-- [x] Can change display filter
+- [x] Change display filter
 
 ## 📃 Available Scripts
 
