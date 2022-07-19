@@ -81,7 +81,7 @@ class FavoritesView {
     return `
     <li class="favorites__list-item">
       <a data-object=${favorite.id} data-origin="favorites" class="favorites__list-item-link">
-        <img src="${favorite.primaryImageSmall}" alt="${favorite.title}" />
+        <img src="${favorite.primaryImageSmall}" alt="${favorite.title}" onerror="this.onerror=null;this.src='https://i.ibb.co/sVT9jpt/cant-be-displayed-img-2.jpg';" />
       </a>
     </li>
     `;

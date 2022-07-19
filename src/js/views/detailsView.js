@@ -122,7 +122,9 @@ class DetailsView {
         <div
           class="details__container-image details__container-image--active"
         >
-          <img src="${this._data.primaryImage}" alt="${this._data.title}" />
+          <img src="${this._data.primaryImage}" alt="${
+      this._data.title
+    }" onerror="this.onerror=null;this.src='https://i.ibb.co/sVT9jpt/cant-be-displayed-img-2.jpg';" />
         </div>
         ${this._data.additionalImages
           .map(img => this._generateImagesMarkup(img))
@@ -198,7 +200,7 @@ class DetailsView {
   _generateImagesMarkup(img) {
     return `
       <div class="details__container-image">
-        <img src="${img}" alt="${this._data.title}" />
+        <img src="${img}" alt="${this._data.title}" onerror="this.onerror=null;this.src='https://i.ibb.co/sVT9jpt/cant-be-displayed-img-2.jpg';" />
       </div>
     `;
   }

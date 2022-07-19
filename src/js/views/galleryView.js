@@ -129,6 +129,7 @@ export default class GalleryView {
         <img
           src="${cell.primaryImageSmall}"
           alt="${cell.title}"
+          onerror="this.onerror=null;this.src='https://i.ibb.co/sVT9jpt/cant-be-displayed-img-2.jpg';"
           class="gallery__item-img"
         />
         <figcaption class="gallery__item-caption">
